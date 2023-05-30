@@ -1,2 +1,24 @@
 @import '../../styles/variables.scss';
 @import '../../styles/mixins.scss';
+
+.button {
+  margin: 0;
+  padding: pxToRem(16px) pxToRem(20px);
+  background-color: $primary_color;
+  color: $black_color;
+  border: none;
+  border-radius: $border_radius;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  appearance: none;
+  transition: transform 150ms ease;
+
+  &:hover {
+    background-color: $primary_dark_color;
+  }
+
+  &:active {
+    transform: scale(0.99);
+  }
+}
