@@ -1,7 +1,7 @@
 import './App.scss';
 import globalStyles from './styles/global.module.scss';
 
-import { AuthContext } from './context/authContext';
+import AuthContext from './context/authContext';
 import { useAuth } from './hooks/auth.hook';
 import { useRoutes } from './hooks/routes.hook';
 

@@ -12,11 +12,11 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 export function useRoutes(isAuthenticated) {
-  if (isAuthenticated) {
+  if (!isAuthenticated) {
     return (
       <Routes>
         <Route index path="/" exact element={<MainPage />} />
-        <Route path="/cotacts" exact element={<ContactsPage />} />
+        <Route path="/contacts" exact element={<ContactsPage />} />
         <Route path="/profile" exact element={<ProfilePage />} />
 
         <Route path="/projects" element={<ProjectsPage />} />

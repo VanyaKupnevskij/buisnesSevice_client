@@ -15,8 +15,12 @@ import {
 } from '../../ui/Icon';
 
 import profileImage from '../../ui/images/default_avatar.png';
+import { useContext } from 'react';
+import AuthContext from '../../context/authContext';
 
 function SideNavbar({ currentTab }) {
+  const { isAuthenticated } = useContext(AuthContext);
+
   return (
     <div className={styles.side_navbar}>
       <Link className={styles.profile_link} to="/profile">
@@ -29,26 +33,38 @@ function SideNavbar({ currentTab }) {
       <IconLink linkPath="/contacts" icon={<ContactsIcon />} isActive={currentTab === 'contacts'}>
         Контакти
       </IconLink>
-      <h4>Деталі</h4>
-      <IconLink linkPath="/projects" icon={<ProjectsIcon />} isActive={currentTab === 'projects'}>
-        Проекти
-      </IconLink>
-      <IconLink linkPath="/general" icon={<GeneralIcon />} isActive={currentTab === 'general'}>
-        Основне
-      </IconLink>
-      <IconLink linkPath="/records" icon={<RecordsIcon />} isActive={currentTab === 'records'}>
-        Записи
-      </IconLink>
-      <IconLink linkPath="/workers" icon={<WorkersIcon />} isActive={currentTab === 'workers'}>
-        Працівники
-      </IconLink>
-      <IconLink linkPath="/graphics" icon={<GraphicIcon />} isActive={currentTab === 'graphics'}>
-        Графіки
-      </IconLink>
 
-      <IconLink className={styles.logout_link} icon={<LogoutIcon />}>
-        Вийти
-      </IconLink>
+      {!isAuthenticated && (
+        <>
+          <IconLink
+            linkPath="/projects"
+            icon={<ProjectsIcon />}
+            isActive={currentTab === 'projects'}>
+            Проекти
+          </IconLink>
+
+          <h4>Деталі</h4>
+          <IconLink linkPath="/general" icon={<GeneralIcon />} isActive={currentTab === 'general'}>
+            Основне
+          </IconLink>
+          <IconLink linkPath="/records" icon={<RecordsIcon />} isActive={currentTab === 'records'}>
+            Записи
+          </IconLink>
+          <IconLink linkPath="/workers" icon={<WorkersIcon />} isActive={currentTab === 'workers'}>
+            Працівники
+          </IconLink>
+          <IconLink
+            linkPath="/graphics"
+            icon={<GraphicIcon />}
+            isActive={currentTab === 'graphics'}>
+            Графіки
+          </IconLink>
+
+          <IconLink className={styles.logout_link} icon={<LogoutIcon />}>
+            Вийти
+          </IconLink>
+        </>
+      )}
     </div>
   );
 }
