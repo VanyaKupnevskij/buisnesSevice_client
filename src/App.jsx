@@ -1,8 +1,8 @@
 import './App.scss';
 import globalStyles from './styles/global.module.scss';
 
-import { AuthContext } from '../../mern/client/src/context/authContext';
-import { useAuth } from '../../mern/client/src/hooks/auth.hook';
+import { AuthContext } from './context/authContext';
+import { useAuth } from './hooks/auth.hook';
 import { useRoutes } from './hooks/routes.hook';
 
 import Loading from './ui/Loading';
