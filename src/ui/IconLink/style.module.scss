@@ -18,9 +18,13 @@
     color: $dark_gray_color;
 
     font-weight: 600;
-    font-size: 24px;
+    font-size: min(max(2.5vh, pxToRem(16px)), pxToRem(24px));
     letter-spacing: 0.03em;
     padding-bottom: pxToRem(4px);
+
+    &:hover {
+      color: $black_color;
+    }
   }
 
   &_active &_content {

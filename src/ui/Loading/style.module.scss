@@ -2,9 +2,10 @@
 @import '../../styles/mixins.scss';
 
 .spinner {
+  display: inline-block;
   width: pxToRem(167px);
   height: pxToRem(167px);
-  display: inline-block;
+
   overflow: hidden;
   background: transparent;
 }

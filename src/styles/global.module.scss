@@ -23,9 +23,18 @@ a {
 
 .inner {
   display: flex;
-  flex-direction: column;
   gap: $gap_block;
-  margin-top: pxToRem(20px);
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  margin: pxToRem(20px);
+  padding: pxToRem(10px);
+  height: calc(100vh - pxToRem(40px));
+
+  box-shadow: $box_shadow;
+  border-radius: 34px;
+
+  background-color: $white_color;
 }
 
 *::-webkit-scrollbar {

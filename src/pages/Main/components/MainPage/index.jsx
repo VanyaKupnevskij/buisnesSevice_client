@@ -1,24 +1,11 @@
 import styles from './style.module.scss';
-
-import { Link } from 'react-router-dom';
+import globalStyles from '../../../../styles/global.module.scss';
 
 import Button, { SecondaryButton } from '../../../../ui/Button';
 import SelectInput from '../../../../ui/SelectInput';
 import TextInput from '../../../../ui/TextInput';
 import Loading from '../../../../ui/Loading';
-import IconLink from '../../../../ui/IconLink';
-import {
-  LogoutIcon,
-  GraphicIcon,
-  WorkersIcon,
-  RecordsIcon,
-  GeneralIcon,
-  ProjectsIcon,
-  ContactsIcon,
-  HomeIcon,
-} from '../../../../ui/Icon';
-
-import profileImage from '../../../../ui/images/default_avatar.png';
+import SideNavbar from '../../../../components/SideNavbar';
 
 function MainPage() {
   const listFilms = [
@@ -28,55 +15,37 @@ function MainPage() {
   ];
 
   return (
-    <>
-      <Loading />
-      <Button>Button Click me</Button>
-      <SecondaryButton>Button Secondary</SecondaryButton>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        <Link to="/profile" style={{ width: 'fit-content' }}>
-          <img
-            src={profileImage}
-            style={{ height: '7rem', borderRadius: '50%', backgroundColor: 'white' }}
+    <div className={globalStyles.container}>
+      <div className={globalStyles.inner}>
+        <SideNavbar currentTab="home" />
+
+        <div className={styles.content}>
+          <h1 className={styles.title}>Головна</h1>
+
+          <Button>Button Click me</Button>
+          <Button>Button Click me</Button>
+          <Button>Button Click me</Button>
+          <SecondaryButton>Button Secondary</SecondaryButton>
+          <SecondaryButton>Button Secondary</SecondaryButton>
+          <SecondaryButton>Button Secondary</SecondaryButton>
+          <SecondaryButton>Button Secondary</SecondaryButton>
+          <TextInput
+            name={'Namecinema'}
+            placeholder={'Enter name cinema...'}
+            label={'Name cinema'}
           />
-        </Link>
-
-        <br />
-        <br />
-
-        <IconLink linkPath="/home" icon={<HomeIcon />}>
-          Головна
-        </IconLink>
-        <IconLink linkPath="/contacts" icon={<ContactsIcon />}>
-          Контакти
-        </IconLink>
-        <br />
-        <IconLink linkPath="/projects" icon={<ProjectsIcon />}>
-          Проекти
-        </IconLink>
-        <IconLink linkPath="/general" icon={<GeneralIcon />} isActive>
-          Основне
-        </IconLink>
-        <IconLink linkPath="/records" icon={<RecordsIcon />} isActive>
-          Записи
-        </IconLink>
-        <IconLink linkPath="/workers" icon={<WorkersIcon />}>
-          Працівники
-        </IconLink>
-        <IconLink linkPath="/graphics" icon={<GraphicIcon />}>
-          Графіки
-        </IconLink>
-        <br />
-        <br />
-        <IconLink icon={<LogoutIcon />}>Вийти</IconLink>
+          <TextInput name={'cinema'} placeholder={'Enter name cinema...'} label={'cinema'} />
+          <TextInput name={'name'} placeholder={'Enter name cinema...'} label={'Name'} />
+          <SelectInput
+            options={listFilms}
+            name={'Film'}
+            placeholder={'Select film...'}
+            label={'Film'}
+          />
+          <Loading />
+        </div>
       </div>
-      <TextInput name={'name'} placeholder={'Enter name cinema...'} label={'Name cinema'} />
-      <SelectInput
-        options={listFilms}
-        name={'Film'}
-        placeholder={'Select film...'}
-        label={'Film'}
-      />
-    </>
+    </div>
   );
 }
 
