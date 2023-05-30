@@ -1,2 +1,43 @@
 @import '../../styles/variables.scss';
 @import '../../styles/mixins.scss';
+
+.root {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  padding-left: pxToRem(45px);
+  width: fit-content;
+
+  &_icon {
+    position: absolute;
+    left: 0;
+  }
+
+  &_content {
+    color: $dark_gray_color;
+
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: 0.03em;
+    padding-bottom: pxToRem(4px);
+  }
+
+  &_active &_content {
+    position: relative;
+    color: $black_color;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: max(pxToRem(2px), 1px);
+
+      border-radius: 3px;
+
+      background-color: $black_color;
+    }
+  }
+}

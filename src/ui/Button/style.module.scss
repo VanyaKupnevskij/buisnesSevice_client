@@ -1,12 +1,13 @@
 @import '../../styles/variables.scss';
 @import '../../styles/mixins.scss';
 
-.button {
+.root {
   margin: 0;
   padding: pxToRem(16px) pxToRem(20px);
   background-color: $primary_color;
   color: $black_color;
   border: none;
+  outline: none;
   border-radius: $border_radius;
   text-transform: uppercase;
   text-decoration: none;

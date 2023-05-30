@@ -33,7 +33,7 @@ export function useRoutes(isAuthenticated) {
   return (
     <Routes>
       <Route index path="/" exact element={<MainPage />} />
-      <Route path="/cotacts" exact element={<ContactsPage />} />
+      <Route path="/contacts" exact element={<ContactsPage />} />
       <Route path="/profile" exact element={<ProfilePage />} />
 
       <Route path="*" element={<Navigate to="/" />} />

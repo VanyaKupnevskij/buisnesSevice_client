@@ -2,7 +2,7 @@ import styles from './style.module.scss';
 import arrowImage from '../images/Arrow.svg';
 import { useState } from 'react';
 
-function SelectInput({ style, className, options = [], name, placeholder = '', label }) {
+function SelectInput({ style, className = '', options = [], name, placeholder = '', label }) {
   const _className = `${styles.root} ${className}`;
   const [value, setValue] = useState('');
 

@@ -1,6 +1,6 @@
 import styles from './style.module.scss';
 
-function Table({ style, className, titles, contents }) {
+function Table({ style, className = '', titles, contents }) {
   const _className = `${styles.table} ${className}`;
 
   return (

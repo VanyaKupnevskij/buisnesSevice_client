@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
 import styles from './style.module.scss';
+
+import { Link } from 'react-router-dom';
 import { COLORS } from '../../styles/variablesJs';
 import styled from 'styled-components';
 
-function Button({ style, className, isLink = false, linkPath = '/', children, handleClick }) {
-  const _className = `${styles.button} ${className}`;
+function Button({ style, className = '', isLink = false, linkPath = '/', children, handleClick }) {
+  const _className = `${styles.root} ${className}`;
 
   return isLink ? (
     <Link to={linkPath} className={_className} onClick={handleClick} style={style}>
