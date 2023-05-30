@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Button, { SecondaryButton } from '../../../../ui/Button';
 import SelectInput from '../../../../ui/SelectInput';
 import TextInput from '../../../../ui/TextInput';
+import Loading from '../../../../ui/Loading';
 import IconLink from '../../../../ui/IconLink';
 import {
   LogoutIcon,
@@ -28,6 +29,7 @@ function MainPage() {
 
   return (
     <>
+      <Loading />
       <Button>Button Click me</Button>
       <SecondaryButton>Button Secondary</SecondaryButton>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
