@@ -1,4 +1,5 @@
 import styles from './style.module.scss';
+import pageGlobalStyles from '../../../pageGlobalStyle.module.scss';
 import globalStyles from '../../../../styles/global.module.scss';
 
 import Loading from '../../../../ui/Loading';
@@ -12,8 +13,8 @@ function ProfilePage() {
       <div className={globalStyles.inner}>
         <SideNavbar currentTab="profile" />
 
-        <div className={styles.content}>
-          <h1 className={styles.title}>Профіль</h1>
+        <div className={pageGlobalStyles.content}>
+          <h1 className={pageGlobalStyles.title}>Профіль</h1>
 
           <Loading />
           <TextInput name={'email'} placeholder={'Уведіть електронну пошту...'} label={'Email'} />

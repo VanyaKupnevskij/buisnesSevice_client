@@ -1,17 +1,2 @@
 @import '../../../../styles/variables.scss';
 @import '../../../../styles/mixins.scss';
-
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: $gap_block;
-  flex-grow: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  .title {
-    margin: pxToRem(20px) 0;
-
-    font-weight: 500;
-  }
-}

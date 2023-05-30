@@ -1,4 +1,5 @@
 import styles from './style.module.scss';
+import pageGlobalStyles from '../../../pageGlobalStyle.module.scss';
 import globalStyles from '../../../../styles/global.module.scss';
 
 import Loading from '../../../../ui/Loading';
@@ -10,8 +11,8 @@ function GeneralPage() {
       <div className={globalStyles.inner}>
         <SideNavbar currentTab="general" />
 
-        <div className={styles.content}>
-          <h1 className={styles.title}>Основне</h1>
+        <div className={pageGlobalStyles.content}>
+          <h1 className={pageGlobalStyles.title}>Основне</h1>
 
           <Loading />
         </div>

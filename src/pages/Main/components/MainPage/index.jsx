@@ -1,4 +1,5 @@
 import styles from './style.module.scss';
+import pageGlobalStyles from '../../../pageGlobalStyle.module.scss';
 import globalStyles from '../../../../styles/global.module.scss';
 
 import Button, { SecondaryButton } from '../../../../ui/Button';
@@ -19,8 +20,8 @@ function MainPage() {
       <div className={globalStyles.inner}>
         <SideNavbar currentTab="home" />
 
-        <div className={styles.content}>
-          <h1 className={styles.title}>Головна</h1>
+        <div className={pageGlobalStyles.content}>
+          <h1 className={pageGlobalStyles.title}>Головна</h1>
 
           <Button>Button Click me</Button>
           <Button>Button Click me</Button>
