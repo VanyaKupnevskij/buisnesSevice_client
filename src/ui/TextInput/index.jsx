@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './style.module.scss';
 
-function TextInput({ style, className = '', name, placeholder = '', label }) {
+function TextInput({ style, className = '', type = 'text', name, placeholder = '', label }) {
   const _className = `${styles.root} ${className}`;
   const [value, setValue] = useState('');
 
@@ -13,7 +13,7 @@ function TextInput({ style, className = '', name, placeholder = '', label }) {
     <div style={style} className={_className}>
       <input
         className={styles.input}
-        type="text"
+        type={type}
         value={value}
         onChange={handleChange}
         id={name}
