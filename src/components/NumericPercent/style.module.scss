@@ -1,2 +1,58 @@
 @import '../../styles/variables.scss';
 @import '../../styles/mixins.scss';
+
+.root {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: pxToRem(6px);
+
+  padding: pxToRem(13px) pxToRem(30px);
+  max-width: minMaxSize(320px, 50vh, 280px);
+  min-height: minMaxSize(140px, 30vh, 120px);
+
+  background-color: $panel_color;
+
+  border-radius: $border_radius;
+}
+
+.text_block {
+  display: flex;
+  flex-direction: column;
+  gap: minMaxSize(20px, 2.3vh, 14px);
+
+  .title {
+    margin: 0;
+
+    color: $dark_gray_color;
+
+    font-weight: 600;
+    font-size: minMaxSize(20px, 2.3vh, 16px);
+  }
+
+  .value {
+    margin: 0;
+
+    font-weight: 600;
+    font-size: minMaxSize(24px, 2.8vh, 16px);
+  }
+
+  .percent {
+    margin: 0;
+
+    font-weight: 600;
+    font-size: minMaxSize(20px, 2vh, 14px);
+
+    &_green {
+      color: $green_color;
+    }
+    &_red {
+      color: $red_color;
+    }
+  }
+}
+
+.graphic {
+  font-weight: 600;
+  font-size: pxToRem(20px);
+}

@@ -30,6 +30,7 @@ a {
 
   margin: pxToRem(20px);
   padding: pxToRem(10px);
+  padding-right: $gap_block;
   height: calc(100vh - pxToRem(40px));
 
   box-shadow: $box_shadow;

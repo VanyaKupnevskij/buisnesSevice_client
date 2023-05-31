@@ -20,7 +20,7 @@
     color: $dark_gray_color;
 
     font-weight: 600;
-    font-size: min(max(2.5vh, pxToRem(16px)), pxToRem(24px));
+    font-size: minMaxSize(24px, 2.5vh, 16px);
     line-height: pxToRem(24px);
     letter-spacing: 0.03em;
     text-transform: uppercase;
@@ -32,7 +32,7 @@
     margin-bottom: min(1vh, pxToRem(40px));
 
     img {
-      height: min(max(12vh, pxToRem(70px)), pxToRem(100px));
+      height: minMaxSize(100px, 12vh, 70px);
       border-radius: 50%;
       background-color: $white_color;
     }
