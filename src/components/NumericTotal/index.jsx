@@ -1,4 +1,5 @@
 import styles from './style.module.scss';
+import panelGlobalStyle from '../panelGlobalStyle.module.scss';
 import { COLORS } from '../../styles/variablesJs';
 
 import LittleGraphic from '../../ui/LittleGraphic';
@@ -8,9 +9,10 @@ function NumericTotal({ title, value, percent, graphData }) {
   const percentFormated = (percent > 0 ? 'Up to ' : 'Down to ') + percent + ' %';
   const classNamePercent =
     styles.percent + ' ' + (percent > 0 ? styles.percent_green : styles.percent_red);
+  const classNameRoot = `${styles.root} ${panelGlobalStyle.panel}`;
 
   return (
-    <div className={styles.root}>
+    <div className={classNameRoot}>
       <div className={styles.text_block}>
         <h6 className={styles.title}>{title}</h6>
         <b className={styles.value}>{valueFormated}</b>

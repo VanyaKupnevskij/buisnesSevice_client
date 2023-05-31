@@ -21,15 +21,8 @@ function LittleGraphic({ className, data = [], width = 30, height = 30, color = 
 
     // Задаем цвет рисования
     ctx.lineWidth = 2;
-    ctx.StrokeStyle = color;
+    ctx.strokeStyle = color;
     ctx.fillStyle = color;
-
-    // Нарисовать оси графика
-    // ctx.beginPath();
-    // ctx.moveTo(0, 0);
-    // ctx.lineTo(0, height);
-    // ctx.lineTo(width, height);
-    // ctx.stroke();
 
     // Нарисовать график с использованием кривых Безье
     ctx.beginPath();
@@ -44,14 +37,6 @@ function LittleGraphic({ className, data = [], width = 30, height = 30, color = 
       ctx.quadraticCurveTo(x1, y1, xc, yc);
     }
     ctx.stroke();
-    // ctx.beginPath();
-    // ctx.moveTo(1, data[0]);
-    // for (let i = 1; i < data.length; i++) {
-    //   const x = i * xStep;
-    //   const y = height - data[i] * yStep;
-    //   ctx.lineTo(x, y);
-    // }
-    // ctx.stroke();
 
     // Нарисовать треугольник
     const lastPoint = data.length - 1;
