@@ -56,10 +56,10 @@ function LittleGraphic({ className, data = [], width = 30, height = 30, color = 
     // Нарисовать треугольник
     const lastPoint = data.length - 1;
     const lastData = data[lastPoint];
-    drawPoint(ctx, lastPoint * xStep, height - lastData * yStep, color, 3);
-
-    ctx.fill();
+    const arrowPoint = { x: lastPoint * xStep, y: height - lastData * yStep };
+    ctx.lineTo(arrowPoint.x, arrowPoint.y);
     ctx.stroke();
+    drawPoint(ctx, arrowPoint.x, arrowPoint.y, color, 3);
   }, [data, width, height]);
 
   return <canvas className={_className} ref={canvasRef} width={width} height={height}></canvas>;
@@ -79,7 +79,7 @@ function drawPoint(context, x, y, color, size) {
 
   context.beginPath();
   context.fillStyle = color;
-  context.arc(pointX, pointY, size, 0 * Math.PI, 2 * Math.PI);
+  context.arc(pointX + size / 2, pointY - size / 2, size, 0 * Math.PI, 2 * Math.PI);
   context.fill();
 }
 
