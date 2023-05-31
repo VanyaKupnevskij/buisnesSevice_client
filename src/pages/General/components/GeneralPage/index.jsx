@@ -10,7 +10,7 @@ import NumericTotal from '../../../../components/NumericTotal';
 
 function GeneralPage() {
   const data1 = [10, 5, 30, 25, 46];
-  const data2 = [40, 29, 35, 15, 24];
+  const data2 = [40, 29, 35, 15, 24, 35, 55, 24, 40, 29, 35, 15, 15, 24, 35, 15];
 
   return (
     <div className={globalStyles.container}>
