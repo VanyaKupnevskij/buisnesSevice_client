@@ -1,4 +1,5 @@
 import styles from './style.module.scss';
+import { COLORS } from '../../styles/variablesJs';
 
 import LittleGraphic from '../../ui/LittleGraphic';
 
@@ -15,7 +16,13 @@ function NumericTotal({ title, value, percent, graphData }) {
         <b className={styles.value}>{valueFormated}</b>
         <p className={classNamePercent}>{percentFormated}</p>
       </div>
-      <LittleGraphic className={styles.graphic} />
+      <LittleGraphic
+        className={styles.graphic}
+        data={graphData}
+        width={100}
+        height={70}
+        color={percent > 0 ? COLORS.green_color : COLORS.red_color}
+      />
     </div>
   );
 }
