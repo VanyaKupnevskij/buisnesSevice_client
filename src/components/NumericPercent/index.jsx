@@ -20,7 +20,7 @@ function NumericPercent({ title, value, duration = 800, startDelay = 500, countS
         style={{ '--start-delay': startDelay + 'ms', '--duration': duration * 1.63 + 'ms' }}>
         {animNumber.toFixed(0)} %
       </b>
-      <PercentHalfCircle className={styles.percent} />
+      <PercentHalfCircle className={styles.percent} value={animNumber} />
     </div>
   );
 }

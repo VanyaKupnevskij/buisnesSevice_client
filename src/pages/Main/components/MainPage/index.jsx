@@ -22,28 +22,29 @@ function MainPage() {
 
         <div className={pageGlobalStyles.content}>
           <h1 className={pageGlobalStyles.title}>Головна</h1>
-
-          <Button>Button Click me</Button>
-          <Button>Button Click me</Button>
-          <Button>Button Click me</Button>
-          <SecondaryButton>Button Secondary</SecondaryButton>
-          <SecondaryButton>Button Secondary</SecondaryButton>
-          <SecondaryButton>Button Secondary</SecondaryButton>
-          <SecondaryButton>Button Secondary</SecondaryButton>
-          <TextInput
-            name={'Namecinema'}
-            placeholder={'Enter name cinema...'}
-            label={'Name cinema'}
-          />
-          <TextInput name={'cinema'} placeholder={'Enter name cinema...'} label={'cinema'} />
-          <TextInput name={'name'} placeholder={'Enter name cinema...'} label={'Name'} />
-          <SelectInput
-            options={listFilms}
-            name={'Film'}
-            placeholder={'Select film...'}
-            label={'Film'}
-          />
-          <Loading />
+          <div className={pageGlobalStyles.content_inner}>
+            <Button>Button Click me</Button>
+            <Button>Button Click me</Button>
+            <Button>Button Click me</Button>
+            <SecondaryButton>Button Secondary</SecondaryButton>
+            <SecondaryButton>Button Secondary</SecondaryButton>
+            <SecondaryButton>Button Secondary</SecondaryButton>
+            <SecondaryButton>Button Secondary</SecondaryButton>
+            <TextInput
+              name={'Namecinema'}
+              placeholder={'Enter name cinema...'}
+              label={'Name cinema'}
+            />
+            <TextInput name={'cinema'} placeholder={'Enter name cinema...'} label={'cinema'} />
+            <TextInput name={'name'} placeholder={'Enter name cinema...'} label={'Name'} />
+            <SelectInput
+              options={listFilms}
+              name={'Film'}
+              placeholder={'Select film...'}
+              label={'Film'}
+            />
+            <Loading />
+          </div>
         </div>
       </div>
     </div>

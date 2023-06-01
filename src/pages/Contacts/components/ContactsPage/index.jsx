@@ -13,8 +13,9 @@ function ContactsPage() {
 
         <div className={pageGlobalStyles.content}>
           <h1 className={pageGlobalStyles.title}>Контакти</h1>
-
-          <Loading />
+          <div className={pageGlobalStyles.content_inner}>
+            <Loading />
+          </div>
         </div>
       </div>
     </div>

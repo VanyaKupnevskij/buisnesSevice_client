@@ -1,9 +1,13 @@
 import styles from './style.module.scss';
 
-function PercentHalfCircle({ className }) {
+function PercentHalfCircle({ className, value }) {
   const _className = `${styles.root} ${className || ''}`;
 
-  return <div className={_className}>PERCENT</div>;
+  return (
+    <div className={_className}>
+      <div className={styles.progress_circle} style={{ '--value': value }}></div>
+    </div>
+  );
 }
 
 export default PercentHalfCircle;

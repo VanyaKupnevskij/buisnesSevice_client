@@ -3,15 +3,16 @@
 
 .root {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  gap: pxToRem(6px);
+  gap: pxToRem(5px);
 }
 
 .text_block {
   display: flex;
   flex-direction: column;
-  gap: minMaxSize(20px, 2.3vh, 14px);
+  gap: minMaxSize(16px, 2vh, 10px);
+  width: pxToRem(160px);
 
   .title {
     margin: 0;

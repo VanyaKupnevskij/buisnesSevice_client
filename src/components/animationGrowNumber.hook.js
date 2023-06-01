@@ -12,7 +12,7 @@ function useAnimationGrowNumber({ value, duration = 800, startDelay = 500, count
     setTimeout(() => {
       let timer = setInterval(() => {
         currentTime += step;
-        const calculatedValue = cubicBezier(currentTime, 0, 0.74, 0.71, 0.91, 0, value);
+        const calculatedValue = cubicBezier(currentTime, 0.2, 0.26, 0.76, 0.95, 0, value);
         setAnimNumber(calculatedValue);
 
         if (calculatedValue >= value) {

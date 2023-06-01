@@ -13,8 +13,9 @@ function ProjectsPage() {
 
         <div className={pageGlobalStyles.content}>
           <h1 className={pageGlobalStyles.title}>Проекти</h1>
-
-          <Loading />
+          <div className={pageGlobalStyles.content_inner}>
+            <Loading />
+          </div>
         </div>
       </div>
     </div>
