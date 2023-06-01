@@ -19,6 +19,6 @@
 
 @for $i from 1 through 100 {
   .content *:nth-child(#{$i}n) {
-    animation-delay: #{$i * $panel_fade_delay}ms;
+    animation-delay: #{($i - 1) * $panel_fade_delay}ms;
   }
 }

@@ -25,6 +25,8 @@
 
     transition: all 0.3s;
 
+    @include numberEffectStyle;
+
     &_normal {
       color: $black_color;
     }

@@ -27,6 +27,8 @@
 
     font-weight: 600;
     font-size: minMaxSize(24px, 2.8vh, 16px);
+
+    @include numberEffectStyle;
   }
 
   .percent {

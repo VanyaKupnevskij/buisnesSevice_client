@@ -2,7 +2,7 @@
 @import '../styles/mixins.scss';
 
 .panel {
-  padding: pxToRem(13px) pxToRem(30px);
+  padding: pxToRem(13px) pxToRem(25px);
   max-width: minMaxSize(320px, 50vh, 280px);
   min-height: minMaxSize(140px, 30vh, 120px);
 
@@ -16,9 +16,11 @@
 
 @keyframes fadeEffect {
   0% {
+    transform: rotateX(40deg);
     opacity: 0;
   }
   100% {
+    transform: rotateX(0deg);
     opacity: 1;
   }
 }

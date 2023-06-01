@@ -26,5 +26,7 @@
     text-align: center;
     font-weight: 600;
     font-size: minMaxSize(34px, 4.2vh, 24px);
+
+    @include numberEffectStyle;
   }
 }

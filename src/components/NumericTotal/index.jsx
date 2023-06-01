@@ -3,9 +3,22 @@ import panelGlobalStyle from '../panelGlobalStyle.module.scss';
 import { COLORS } from '../../styles/variablesJs';
 
 import LittleGraphic from '../../ui/LittleGraphic';
+import useAnimationGrowNumber from '../animationGrowNumber.hook';
+import useFormatedPrice from '../formatedPrice.hook';
 
-function NumericTotal({ title, value, percent, graphData }) {
-  const valueFormated = formatedNumber(value);
+function NumericTotal({
+  title,
+  value,
+  percent,
+  graphData,
+  widthGraph = 80,
+  heightGraph = 70,
+  duration = 800,
+  startDelay = 500,
+  countStep = 40,
+}) {
+  const { animNumber } = useAnimationGrowNumber({ value, duration, startDelay, countStep });
+  const valueFormated = useFormatedPrice(animNumber);
   const percentFormated = (percent > 0 ? 'Up to ' : 'Down to ') + percent + ' %';
   const classNamePercent =
     styles.percent + ' ' + (percent > 0 ? styles.percent_green : styles.percent_red);
@@ -15,28 +28,22 @@ function NumericTotal({ title, value, percent, graphData }) {
     <div className={classNameRoot}>
       <div className={styles.text_block}>
         <h6 className={styles.title}>{title}</h6>
-        <b className={styles.value}>{valueFormated}</b>
+        <b
+          className={styles.value}
+          style={{ '--start-delay': startDelay + 'ms', '--duration': duration * 1.63 + 'ms' }}>
+          $ {valueFormated}
+        </b>
         <p className={classNamePercent}>{percentFormated}</p>
       </div>
       <LittleGraphic
         className={styles.graphic}
         data={graphData}
-        width={100}
-        height={70}
+        width={widthGraph}
+        height={heightGraph}
         color={percent > 0 ? COLORS.green_color : COLORS.red_color}
       />
     </div>
   );
-}
-
-function formatedNumber(number) {
-  const integerPart = Number(number.toFixed(2)).toLocaleString();
-
-  let parts = integerPart.split(',');
-  if (!parts[1]) parts.push('00');
-  parts[1] = parts[1].padEnd(2, '0');
-
-  return `$ ${parts[0]}.${parts[1]}`;
 }
 
 export default NumericTotal;

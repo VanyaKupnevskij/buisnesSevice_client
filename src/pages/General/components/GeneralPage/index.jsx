@@ -20,7 +20,7 @@ function GeneralPage() {
         <div className={pageGlobalStyles.content}>
           <h1 className={pageGlobalStyles.title}>Основне</h1>
 
-          <Numeric title={'Кількість працівників'} value={7} />
+          <Numeric title={'Кількість працівників'} value={7000} duration={800} />
           <NumericTotal title={'Прибуток'} value={248384.0734} percent={27} graphData={data1} />
           <NumericTotal title={'Витрати'} value={140233.39355} percent={-4} graphData={data2} />
           <NumericPercent title={'Рентабельність'} value={65} />

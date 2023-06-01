@@ -47,7 +47,12 @@ function LittleGraphic({ className, data = [], width = 30, height = 30, color = 
     drawPoint(ctx, arrowPoint.x, arrowPoint.y, color, 3);
   }, [data, width, height]);
 
-  return <canvas className={_className} ref={canvasRef} width={width} height={height}></canvas>;
+  return (
+    <div className={_className}>
+      <canvas className={_className} ref={canvasRef} width={width} height={height}></canvas>
+      <div className={styles.blind}></div>
+    </div>
+  );
 }
 
 function drawPoint(context, x, y, color, size) {
