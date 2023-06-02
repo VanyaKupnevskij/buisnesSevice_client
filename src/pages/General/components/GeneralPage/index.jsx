@@ -9,6 +9,7 @@ import Numeric from '../../../../components/Numeric';
 import NumericPercent from '../../../../components/NumericPercent';
 import NumericTotal from '../../../../components/NumericTotal';
 import Table from '../../../../components/Table';
+import Modal from '../../../../components/Modal';
 
 function GeneralPage() {
   const data1 = [10, 5, 30, 25, 46];
@@ -31,9 +32,21 @@ function GeneralPage() {
     ['26.09.2023', 'Підписка', '940 $', '53.6%', '53.6 %', '3 800 $'],
   ];
 
+  const dataModal = [
+    { title: 'Дата', value: '26.09.2023' },
+    { title: 'Джерело', value: '26.09.2023' },
+    { title: 'Прибуток', value: '3 800 $' },
+    { title: 'Витрати', value: '1 670 $' },
+    { title: 'Маржа', value: '1 830 $' },
+    { title: 'Маржинальність', value: '53.6%' },
+    { title: 'Рентабельність', value: '53.6%' },
+  ];
+
   return (
     <div className={globalStyles.container}>
       <div className={globalStyles.inner}>
+        <Modal title={'Деталі запису'} datas={dataModal} />
+
         <SideNavbar currentTab="general" />
 
         <div className={pageGlobalStyles.content}>
