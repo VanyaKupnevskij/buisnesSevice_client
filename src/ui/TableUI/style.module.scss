@@ -1,0 +1,105 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.table {
+  display: block;
+  overflow: hidden;
+
+  font-size: pxToRem(14px);
+
+  thead {
+    display: block;
+    margin-bottom: pxToRem(10px);
+
+    tr {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 pxToRem(10px);
+    }
+
+    th {
+      position: relative;
+      width: min(100%, pxToRem(110px));
+      padding: 0 pxToRem(5px);
+
+      font-weight: 600;
+      word-wrap: break-word;
+
+      &:first-child {
+        padding-right: pxToRem(10px);
+        text-align: left;
+      }
+      &:last-child {
+        padding-left: pxToRem(10px);
+        text-align: right;
+      }
+    }
+  }
+
+  tbody {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+
+    max-height: calc(100% - pxToRem(50px));
+    padding: pxToRem(10px) 0;
+
+    tr {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: pxToRem(16px) pxToRem(5px);
+
+      transition: background-color 200ms;
+
+      &.selected {
+        background-color: rgba($primary_color, 0.5);
+        border-radius: $border_radius;
+      }
+
+      &:hover {
+        background-color: rgba($panel_dark_color, 0.5);
+        border-radius: $border_radius;
+        box-shadow: $little_box_shadow;
+      }
+      &:hover + tr::after,
+      &.selected + tr::after {
+        opacity: 0;
+      }
+      &:hover::after,
+      &.selected::after {
+        opacity: 0;
+      }
+    }
+
+    td {
+      position: relative;
+      width: min(100%, pxToRem(110px));
+      padding: 0 pxToRem(10px);
+
+      font-weight: 500;
+      text-align: center;
+      word-wrap: break-word;
+
+      &:first-child {
+        padding-right: pxToRem(10px);
+        text-align: left;
+      }
+      &:last-child {
+        padding-left: pxToRem(10px);
+        text-align: right;
+      }
+    }
+
+    tr + tr::after {
+      content: '';
+      position: absolute;
+      width: calc(100% - pxToRem(40px));
+      height: pxToRem(2px);
+      top: pxToRem(-5px);
+      left: pxToRem(20px);
+      background-color: $panel_dark_color;
+    }
+  }
+}

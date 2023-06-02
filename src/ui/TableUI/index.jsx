@@ -1,6 +1,6 @@
 import styles from './style.module.scss';
 
-function Table({ style, className = '', titles, contents }) {
+function TableUI({ style, className = '', titles = [], contents = [], selectedRow = null }) {
   const _className = `${styles.table} ${className}`;
 
   return (
@@ -18,7 +18,7 @@ function Table({ style, className = '', titles, contents }) {
       <tbody>
         {contents.map((row, id) => {
           return (
-            <tr key={id}>
+            <tr key={id} className={selectedRow === id ? styles.selected : ''}>
               {row.map((data, id) => (
                 <td key={id}>{data}</td>
               ))}
@@ -30,4 +30,4 @@ function Table({ style, className = '', titles, contents }) {
   );
 }
 
-export default Table;
+export default TableUI;

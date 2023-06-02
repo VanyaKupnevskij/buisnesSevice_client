@@ -9,11 +9,7 @@
   &_inner {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(pxToRem(280px), 1fr));
-    grid-template-rows: repeat(auto-fill, minmax(minMaxSize(140px, 20vh, 100px), 1fr));
-    justify-items: start;
-    justify-content: start;
-    align-items: start;
-    align-content: start;
+    grid-auto-rows: pxToRem(140px);
     gap: $gap_block;
     flex-grow: 1;
     overflow-y: auto;
@@ -21,7 +17,6 @@
   }
 
   .title {
-    // display: none;
     grid-column: span 4;
 
     margin: minMaxSize(20px, 2.5vh, 16px) 0;

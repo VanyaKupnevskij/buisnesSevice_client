@@ -4,6 +4,8 @@
 .root {
   --value: 0;
 
+  position: relative;
+
   .progress_circle {
     position: relative;
     display: flex;
@@ -43,5 +45,23 @@
 
       background-color: $panel_color;
     }
+  }
+
+  .label1 {
+    position: absolute;
+    bottom: 50%;
+    left: pxToRem(20px);
+
+    font-size: pxToRem(20px);
+    font-weight: 600;
+  }
+
+  .label2 {
+    position: absolute;
+    bottom: 50%;
+    right: pxToRem(20px);
+
+    font-size: pxToRem(20px);
+    font-weight: 600;
   }
 }

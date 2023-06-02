@@ -12,7 +12,8 @@
   display: flex;
   flex-direction: column;
   gap: minMaxSize(16px, 2vh, 10px);
-  width: pxToRem(160px);
+  width: pxToRem(180px);
+  flex-grow: 1;
 
   .title {
     margin: 0;

@@ -17,7 +17,7 @@ $panel_color: #f2f5fb;
 $panel_dark_color: #dde0e6;
 
 $box_shadow: 0px 4px 21px rgba($black_color, 0.09);
-$little_box_shadow: 0px 2px 5px rgba(51, 68, 99, 0.37);
+$little_box_shadow: 0px 0px 3px 2px rgba($panel_dark_color, 0.37);
 
 $border_radius: 13px;
 $border: min(pxToRem(2px), 2px) solid $primary_color;

@@ -10,7 +10,7 @@
   align-items: center;
   gap: minMaxSize(30px, 3.8vh, 20px);
 
-  min-height: calc(minMaxSize(140px, 30vh, 120px) * 2);
+  min-height: pxToRem(230px);
 
   .title {
     margin: 0;

@@ -12,23 +12,23 @@ function SelectInput({ style, className = '', options = [], name, placeholder = 
 
   return (
     <div style={style} className={_className}>
-      <select
-        className={styles.input}
-        value={value}
-        onChange={handleChange}
-        id={name}
-        name={name}
-        placeholder={placeholder}>
-        <option value="">{placeholder}</option>
+      <select className={styles.input} value={value} onChange={handleChange} id={name} name={name}>
+        {placeholder && (
+          <option value="" disabled>
+            {placeholder}
+          </option>
+        )}
         {options.map((option) => (
           <option key={option.key} value={option.key}>
             {option.value}
           </option>
         ))}
       </select>
-      <label className={styles.label} htmlFor={name}>
-        {label}
-      </label>
+      {label && (
+        <label className={styles.label} htmlFor={name}>
+          {label}
+        </label>
+      )}
       <img className={styles.arrow} src={arrowImage} alt="arrow" />
     </div>
   );
