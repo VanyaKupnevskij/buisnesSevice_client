@@ -4,7 +4,7 @@ import panelGlobalStyle from '../panelGlobalStyle.module.scss';
 import TableUI from '../../ui/TableUI';
 import SelectInput from '../../ui/SelectInput';
 
-function Table({ title, titles, contents }) {
+function Table({ title, titles, contents, onClick = () => {} }) {
   const classNameRoot = `${styles.root} ${panelGlobalStyle.panel}`;
 
   const listFilms = [
@@ -19,7 +19,7 @@ function Table({ title, titles, contents }) {
         <h6 className={styles.title}>{title}</h6>
         <SelectInput className={styles.filter_time} options={listFilms} name={'filter'} />
       </div>
-      <TableUI titles={titles} contents={contents} selectedRow={3} />
+      <TableUI titles={titles} contents={contents} selectedRow={3} onClick={onClick} />
     </div>
   );
 }

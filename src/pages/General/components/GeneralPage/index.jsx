@@ -10,8 +10,11 @@ import NumericPercent from '../../../../components/NumericPercent';
 import NumericTotal from '../../../../components/NumericTotal';
 import Table from '../../../../components/Table';
 import Modal from '../../../../components/Modal';
+import { useState } from 'react';
 
 function GeneralPage() {
+  const [showModal, setShowModal] = useState(false);
+
   const data1 = [10, 5, 30, 25, 46];
   const data2 = [40, 29, 35, 15, 24, 35, 55, 24, 40, 29, 35, 15, 15, 24, 35, 15];
   const data3 = [10, 5, 30, 25, 46, 24, 35, 15];
@@ -32,20 +35,40 @@ function GeneralPage() {
     ['26.09.2023', 'Підписка', '940 $', '53.6%', '53.6 %', '3 800 $'],
   ];
 
-  const dataModal = [
+  const [dataModal, setDataModal] = useState([
     { title: 'Дата', value: '26.09.2023' },
-    { title: 'Джерело', value: '26.09.2023' },
+    { title: 'Джерело', value: 'ЗП працівнику' },
     { title: 'Прибуток', value: '3 800 $' },
     { title: 'Витрати', value: '1 670 $' },
     { title: 'Маржа', value: '1 830 $' },
-    { title: 'Маржинальність', value: '53.6%' },
-    { title: 'Рентабельність', value: '53.6%' },
-  ];
+    { title: 'Маржинальність', value: '53.6 %' },
+    { title: 'Рентабельність', value: '53.6 %' },
+  ]);
+
+  function handleClickRow(id) {
+    setShowModal(true);
+
+    const tempDataModal = [];
+    for (let i = 0; i < titlesIncome.length; i++) {
+      tempDataModal.push({
+        title: titlesIncome[i],
+        value: listIncome[id][i],
+      });
+    }
+
+    setDataModal(tempDataModal);
+  }
+
+  function handleCloseModal() {
+    setShowModal(false);
+  }
 
   return (
     <div className={globalStyles.container}>
       <div className={globalStyles.inner}>
-        <Modal title={'Деталі запису'} datas={dataModal} />
+        {showModal && (
+          <Modal title={'Деталі запису'} datas={dataModal} onClose={handleCloseModal} />
+        )}
 
         <SideNavbar currentTab="general" />
 
@@ -88,7 +111,12 @@ function GeneralPage() {
               graphData={data4}
               startDelay={1000}
             />
-            <Table title={'Прибутки'} titles={titlesIncome} contents={listIncome} />
+            <Table
+              title={'Прибутки'}
+              titles={titlesIncome}
+              contents={listIncome}
+              onClick={handleClickRow}
+            />
             <Table title={'Витрати'} titles={titlesIncome} contents={listIncome} />
             <NumericTotal
               title={'Прибуток'}
