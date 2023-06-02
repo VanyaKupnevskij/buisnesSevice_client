@@ -1,12 +1,22 @@
 import { useState } from 'react';
 import styles from './style.module.scss';
 
-function TextInput({ style, className = '', type = 'text', name, placeholder = '', label }) {
+function TextInput({
+  initValue = '',
+  onChange = () => {},
+  style,
+  className = '',
+  type = 'text',
+  name,
+  placeholder = '',
+  label,
+}) {
   const _className = `${styles.root} ${className}`;
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(initValue);
 
   function handleChange(e) {
     setValue(e.target.value);
+    onChange(e.target.value);
   }
 
   return (
