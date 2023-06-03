@@ -5,6 +5,8 @@
   display: block;
   overflow: hidden;
 
+  height: 100%;
+
   font-size: pxToRem(14px);
 
   thead {
@@ -51,6 +53,7 @@
       align-items: center;
       padding: pxToRem(16px) pxToRem(5px);
 
+      cursor: pointer;
       transition: background-color 200ms;
 
       &.selected {

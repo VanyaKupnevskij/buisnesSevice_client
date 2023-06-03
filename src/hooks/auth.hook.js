@@ -18,6 +18,11 @@ export function useAuth() {
   }, []);
 
   useEffect(() => {
+    if (token) {
+      setReady(true);
+      return;
+    }
+
     const data = JSON.parse(localStorage.getItem(storageName));
 
     if (data && data.token) {

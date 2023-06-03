@@ -1,5 +1,5 @@
-import authReducer from './store/reducer';
+import projectReducer from './store/reducer';
 import ModuleMain from './components/ModuleMain';
 
-export { authReducer };
+export { projectReducer };
 export default ModuleMain;

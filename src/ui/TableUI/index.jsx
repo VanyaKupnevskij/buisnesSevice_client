@@ -24,12 +24,14 @@ function TableUI({
 
       <tbody>
         {contents.map((row, id) => {
+          const list = Array.isArray(row) ? row : Object.values(row);
+
           return (
             <tr
               key={id}
               className={selectedRow === id ? styles.selected : ''}
               onClick={() => onClick(id)}>
-              {row.map((data, id) => (
+              {list.map((data, id) => (
                 <td key={id}>{data}</td>
               ))}
             </tr>
