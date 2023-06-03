@@ -20,8 +20,7 @@ import Loading from '../../ui/Loading';
 import { useSelector } from 'react-redux';
 
 function SideNavbar({ currentTab }) {
-  const { logout, ready, name } = useAuth();
-  const { isAuthorization, userName, userEmail, token } = useSelector((state) => state.auth);
+  const { isAuthorization, logout, ready } = useAuth();
 
   function handleClickLogout() {
     logout();

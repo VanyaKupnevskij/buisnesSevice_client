@@ -30,4 +30,8 @@
   &:active {
     background-color: $primary_dark2_color;
   }
+
+  &:disabled {
+    background-color: $gray_color;
+  }
 }

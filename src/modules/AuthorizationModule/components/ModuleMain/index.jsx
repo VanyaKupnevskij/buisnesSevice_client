@@ -68,8 +68,8 @@ function AuthorizationModule() {
             value={form.password}
             onChange={(value) => handleChange('password', value)}
           />
-          <Button className={styles.submit_button} onClick={handleClickLogin}>
-            Увійти
+          <Button className={styles.submit_button} onClick={handleClickLogin} disabled={loading}>
+            {loading ? 'Завантажуємо...' : 'Увійти'}
           </Button>
           <p className={styles.another_link}>реєстрація</p>
         </div>
