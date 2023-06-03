@@ -17,10 +17,11 @@ import {
 import profileImage from '../../ui/images/default_avatar.png';
 import { useAuth } from '../../hooks/auth.hook';
 import Loading from '../../ui/Loading';
-import { useSelector } from 'react-redux';
+import { useProject } from '../../hooks/projects.hook';
 
 function SideNavbar({ currentTab }) {
   const { isAuthorization, logout, ready } = useAuth();
+  const { hasSelected } = useProject();
 
   function handleClickLogout() {
     logout();
@@ -52,22 +53,35 @@ function SideNavbar({ currentTab }) {
             Проекти
           </IconLink>
 
-          <h4>Деталі</h4>
-          <IconLink linkPath="/general" icon={<GeneralIcon />} isActive={currentTab === 'general'}>
-            Основне
-          </IconLink>
-          <IconLink linkPath="/records" icon={<RecordsIcon />} isActive={currentTab === 'records'}>
-            Записи
-          </IconLink>
-          <IconLink linkPath="/workers" icon={<WorkersIcon />} isActive={currentTab === 'workers'}>
-            Працівники
-          </IconLink>
-          <IconLink
-            linkPath="/graphics"
-            icon={<GraphicIcon />}
-            isActive={currentTab === 'graphics'}>
-            Графіки
-          </IconLink>
+          {hasSelected && (
+            <>
+              <h4>Деталі</h4>
+              <IconLink
+                linkPath="/general"
+                icon={<GeneralIcon />}
+                isActive={currentTab === 'general'}>
+                Основне
+              </IconLink>
+              <IconLink
+                linkPath="/records"
+                icon={<RecordsIcon />}
+                isActive={currentTab === 'records'}>
+                Записи
+              </IconLink>
+              <IconLink
+                linkPath="/workers"
+                icon={<WorkersIcon />}
+                isActive={currentTab === 'workers'}>
+                Працівники
+              </IconLink>
+              <IconLink
+                linkPath="/graphics"
+                icon={<GraphicIcon />}
+                isActive={currentTab === 'graphics'}>
+                Графіки
+              </IconLink>
+            </>
+          )}
 
           <IconLink
             className={styles.logout_link}

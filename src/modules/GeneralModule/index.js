@@ -1,5 +1,3 @@
-import someReducer from './store/reducer';
-import SomeModule from './components/SomeModule';
+import MainModule from './components/MainModule';
 
-export { someReducer };
-export default SomeModule;
+export default MainModule;

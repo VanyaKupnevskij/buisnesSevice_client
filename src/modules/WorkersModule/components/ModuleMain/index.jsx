@@ -8,7 +8,7 @@ import { useAuth } from '../../../../hooks/auth.hook';
 import Table from '../../../../components/Table';
 
 function WorkersModule() {
-  const { loading, request, error, clearError } = useHttp();
+  const { loading, request, error } = useHttp();
   const { token } = useAuth();
   const [workers, setWorkers] = useState([]);
   const [renderList, setRenderList] = useState([]);

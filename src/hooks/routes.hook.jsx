@@ -10,31 +10,30 @@ import GraphicsPage from '../pages/Graphics';
 
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { useProject } from './projects.hook';
 
 export function useRoutes(isAuthenticated) {
-  if (isAuthenticated) {
-    return (
-      <Routes>
-        <Route index path="/" exact element={<MainPage />} />
-        <Route path="/contacts" exact element={<ContactsPage />} />
-        <Route path="/profile" exact element={<ProfilePage />} />
-
-        <Route path="/projects" element={<ProjectsPage />} />
-        <Route path="/general" element={<GeneralPage />} />
-        <Route path="/records" element={<RecordsPage />} />
-        <Route path="/workers" element={<WorkersPage />} />
-        <Route path="/graphics" element={<GraphicsPage />} />
-
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-    );
-  }
+  const { hasSelected } = useProject();
 
   return (
     <Routes>
       <Route index path="/" exact element={<MainPage />} />
       <Route path="/contacts" exact element={<ContactsPage />} />
       <Route path="/profile" exact element={<ProfilePage />} />
+
+      {isAuthenticated && (
+        <>
+          <Route path="/projects" element={<ProjectsPage />} />
+          {hasSelected && (
+            <>
+              <Route path="/general" element={<GeneralPage />} />
+              <Route path="/records" element={<RecordsPage />} />
+              <Route path="/workers" element={<WorkersPage />} />
+              <Route path="/graphics" element={<GraphicsPage />} />
+            </>
+          )}
+        </>
+      )}
 
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>

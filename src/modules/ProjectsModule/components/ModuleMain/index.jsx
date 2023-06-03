@@ -4,7 +4,7 @@ import Loading from '../../../../ui/Loading';
 
 import { useHttp } from '../../../../hooks/http.hook';
 import { useEffect, useState } from 'react';
-import { useProject } from '../../helpers/projects.hook';
+import { useProject } from '../../../../hooks/projects.hook';
 import { useAuth } from '../../../../hooks/auth.hook';
 import Table from '../../../../components/Table';
 
@@ -23,7 +23,7 @@ function ProjectsModule() {
         return Number(index);
       }
     }
-    return 0;
+    return -1;
   }
 
   async function loadProjects() {
