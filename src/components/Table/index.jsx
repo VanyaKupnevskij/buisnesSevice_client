@@ -5,6 +5,8 @@ import TableUI from '../../ui/TableUI';
 import SelectInput from '../../ui/SelectInput';
 
 function Table({
+  className,
+  style,
   title,
   titles,
   contents,
@@ -12,7 +14,7 @@ function Table({
   selectedRow = -1,
   hasFilter = true,
 }) {
-  const classNameRoot = `${styles.root} ${panelGlobalStyle.panel}`;
+  const classNameRoot = `${styles.root} ${panelGlobalStyle.panel} ${className}`;
 
   const listFilms = [
     { key: 'all_time', value: 'За весь час' },
@@ -22,13 +24,19 @@ function Table({
 
   return (
     <div className={classNameRoot}>
-      <div className={styles.top_controls}>
+      <div className={styles.top_controls} style={style}>
         <h6 className={styles.title}>{title}</h6>
         {hasFilter && (
           <SelectInput className={styles.filter_time} options={listFilms} name={'filter'} />
         )}
       </div>
-      <TableUI titles={titles} contents={contents} selectedRow={selectedRow} onClick={onClick} />
+      <TableUI
+        titles={titles}
+        contents={contents}
+        selectedRow={selectedRow}
+        onClick={onClick}
+        style={{ '--count-column': titles.length }}
+      />
     </div>
   );
 }

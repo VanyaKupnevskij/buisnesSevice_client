@@ -1,4 +1,3 @@
-import panelGlobalStyle from '../../../../components/panelGlobalStyle.module.scss';
 import styles from './style.module.scss';
 
 import Loading from '../../../../ui/Loading';
@@ -11,11 +10,12 @@ import Table from '../../../../components/Table';
 
 function ProjectsModule() {
   const { selectProject, selectedId } = useProject();
-  const { loading, request, error, clearError } = useHttp();
+  const { loading, request, error } = useHttp();
   const { token } = useAuth();
   const [projects, setProjects] = useState([]);
+  const [renderList, setRenderList] = useState([]);
 
-  const titlesIncome = ['ID', 'ID користувача', 'Назва', 'Категорія'];
+  const titles = ['Назва', 'Категорія'];
 
   function indefOfSelected(id) {
     for (let index in projects) {
@@ -35,6 +35,12 @@ function ProjectsModule() {
       });
 
       setProjects(responceProjects);
+
+      const formatedList = responceProjects.map((project) => {
+        return { name: project.name, category: project.category };
+      });
+
+      setRenderList(formatedList);
     } catch (e) {}
   }
 
@@ -52,14 +58,18 @@ function ProjectsModule() {
 
   return (
     <>
-      <Table
-        title={'Проекти'}
-        titles={titlesIncome}
-        contents={projects}
-        onClick={handleSelect}
-        selectedRow={indefOfSelected(selectedId)}
-        hasFilter={false}
-      />
+      {error ? (
+        <div className={styles.error_message}>{error.message}</div>
+      ) : (
+        <Table
+          className={styles.table}
+          titles={titles}
+          contents={renderList}
+          onClick={handleSelect}
+          selectedRow={indefOfSelected(selectedId)}
+          hasFilter={false}
+        />
+      )}
     </>
   );
 }

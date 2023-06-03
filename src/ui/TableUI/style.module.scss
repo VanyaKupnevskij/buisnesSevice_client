@@ -2,6 +2,8 @@
 @import '../../styles/mixins.scss';
 
 .table {
+  --count-column: 6;
+
   display: block;
   overflow: hidden;
 
@@ -21,7 +23,7 @@
 
     th {
       position: relative;
-      width: min(100%, pxToRem(110px));
+      width: min(100%, calc((7 - var(--count-column)) * pxToRem(110px)));
       padding: 0 pxToRem(5px);
 
       font-weight: 600;
@@ -78,7 +80,7 @@
 
     td {
       position: relative;
-      width: min(100%, pxToRem(110px));
+      width: min(100%, calc((7 - var(--count-column)) * pxToRem(110px)));
       padding: 0 pxToRem(10px);
 
       font-weight: 500;

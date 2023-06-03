@@ -6,7 +6,7 @@ const initialState = {
 };
 
 export const projectSlice = createSlice({
-  name: 'projects',
+  name: 'project',
   initialState,
   reducers: {
     setSelectedAction: (state, action) => {
