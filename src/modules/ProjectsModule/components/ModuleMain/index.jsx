@@ -59,7 +59,6 @@ function AuthorizationModule() {
             label={'Email'}
             value={form.email}
             onChange={(value) => handleChange('email', value)}
-            onKeyUp={(e) => e.key === 'Enter' && handleClickLogin()}
           />
           <TextInput
             name={'password'}
@@ -68,7 +67,6 @@ function AuthorizationModule() {
             label={'Пароль'}
             value={form.password}
             onChange={(value) => handleChange('password', value)}
-            onKeyUp={(e) => e.key === 'Enter' && handleClickLogin()}
           />
           <Button className={styles.submit_button} onClick={handleClickLogin} disabled={loading}>
             {loading ? 'Завантажуємо...' : 'Увійти'}

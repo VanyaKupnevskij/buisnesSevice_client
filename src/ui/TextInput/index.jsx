@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import styles from './style.module.scss';
 
 function TextInput({
   value,
   onChange = () => {},
+  onKeyUp = () => {},
   style,
   className = '',
   type = 'text',
@@ -20,6 +20,7 @@ function TextInput({
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onKeyUp={(e) => onKeyUp(e)}
         id={name}
         name={name}
         placeholder={placeholder}
