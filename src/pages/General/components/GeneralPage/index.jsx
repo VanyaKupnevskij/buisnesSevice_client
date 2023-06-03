@@ -117,7 +117,12 @@ function GeneralPage() {
               contents={listIncome}
               onClick={handleClickRow}
             />
-            <Table title={'Витрати'} titles={titlesIncome} contents={listIncome} />
+            <Table
+              title={'Витрати'}
+              titles={titlesIncome}
+              contents={listIncome}
+              onClick={handleClickRow}
+            />
             <NumericTotal
               title={'Прибуток'}
               value={248377684.0734}

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './style.module.scss';
 
 function TextInput({
-  initValue = '',
+  value,
   onChange = () => {},
   style,
   className = '',
@@ -12,12 +12,6 @@ function TextInput({
   label,
 }) {
   const _className = `${styles.root} ${className}`;
-  const [value, setValue] = useState(initValue);
-
-  function handleChange(e) {
-    setValue(e.target.value);
-    onChange(e.target.value);
-  }
 
   return (
     <div style={style} className={_className}>
@@ -25,7 +19,7 @@ function TextInput({
         className={styles.input}
         type={type}
         value={value}
-        onChange={handleChange}
+        onChange={(e) => onChange(e.target.value)}
         id={name}
         name={name}
         placeholder={placeholder}

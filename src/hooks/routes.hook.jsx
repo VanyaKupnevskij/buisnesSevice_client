@@ -12,7 +12,7 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 export function useRoutes(isAuthenticated) {
-  if (!isAuthenticated) {
+  if (isAuthenticated) {
     return (
       <Routes>
         <Route index path="/" exact element={<MainPage />} />

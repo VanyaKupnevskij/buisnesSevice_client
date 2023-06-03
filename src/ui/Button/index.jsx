@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom';
 import { COLORS } from '../../styles/variablesJs';
 import styled from 'styled-components';
 
-function Button({ style, className = '', isLink = false, linkPath = '/', children, handleClick }) {
+function Button({ style, className = '', isLink = false, linkPath = '/', children, onClick }) {
   const _className = `${styles.root} ${className}`;
 
   return isLink ? (
-    <Link to={linkPath} className={_className} onClick={handleClick} style={style}>
+    <Link to={linkPath} className={_className} onClick={onClick} style={style}>
       {children}
     </Link>
   ) : (
-    <button className={_className} onClick={handleClick} style={style}>
+    <button className={_className} onClick={onClick} style={style}>
       {children}
     </button>
   );

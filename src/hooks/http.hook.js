@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../axios.common';
 import { useState, useCallback } from 'react';
 
 export function useHttp() {
@@ -31,8 +31,8 @@ export function useHttp() {
         return response.data;
       } catch (e) {
         setLoading(false);
-        setError(e);
-        throw e;
+        setError(e.response.data);
+        throw e.response.data;
       }
     },
     [],

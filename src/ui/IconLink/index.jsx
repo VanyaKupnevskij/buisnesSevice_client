@@ -8,13 +8,13 @@ function IconLink({
   linkPath = '',
   icon,
   children,
-  handleClick,
+  onClick,
   isActive = false,
 }) {
   const _className = `${styles.root} ${className}${isActive ? styles.root_active : ''}`;
 
   return (
-    <Link to={linkPath} className={_className} onClick={handleClick} style={style}>
+    <Link to={linkPath} className={_className} onClick={onClick} style={style}>
       <div className={styles.root_icon}>{icon}</div>
       <div className={styles.root_content}>{children}</div>
     </Link>

@@ -20,7 +20,6 @@
 
     color: $dark_gray_color;
 
-    text-align: center;
     font-weight: 600;
     font-size: minMaxSize(20px, 2.5vh, 16px);
   }
@@ -48,4 +47,6 @@
 
   border-radius: pxToRem(40px);
   backdrop-filter: blur(5px);
+
+  transition: all 800ms;
 }

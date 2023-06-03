@@ -15,11 +15,21 @@ import {
 } from '../../ui/Icon';
 
 import profileImage from '../../ui/images/default_avatar.png';
-import { useContext } from 'react';
-import AuthContext from '../../context/authContext';
+import { useAuth } from '../../hooks/auth.hook';
+import Loading from '../../ui/Loading';
+import { useSelector } from 'react-redux';
 
 function SideNavbar({ currentTab }) {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { logout, ready, name } = useAuth();
+  const { isAuthorization, userName, userEmail, token } = useSelector((state) => state.auth);
+
+  function handleClickLogout() {
+    logout();
+  }
+
+  if (ready === false) {
+    return <Loading />;
+  }
 
   return (
     <div className={styles.side_navbar}>
@@ -34,7 +44,7 @@ function SideNavbar({ currentTab }) {
         Контакти
       </IconLink>
 
-      {!isAuthenticated && (
+      {isAuthorization && (
         <>
           <IconLink
             linkPath="/projects"
@@ -60,7 +70,10 @@ function SideNavbar({ currentTab }) {
             Графіки
           </IconLink>
 
-          <IconLink className={styles.logout_link} icon={<LogoutIcon />}>
+          <IconLink
+            className={styles.logout_link}
+            icon={<LogoutIcon />}
+            onClick={handleClickLogout}>
             Вийти
           </IconLink>
         </>

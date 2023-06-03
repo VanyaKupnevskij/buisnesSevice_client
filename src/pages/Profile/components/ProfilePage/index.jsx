@@ -2,10 +2,8 @@ import styles from './style.module.scss';
 import pageGlobalStyles from '../../../pageGlobalStyle.module.scss';
 import globalStyles from '../../../../styles/global.module.scss';
 
-import Loading from '../../../../ui/Loading';
 import SideNavbar from '../../../../components/SideNavbar';
-import TextInput from '../../../../ui/TextInput';
-import Button from '../../../../ui/Button';
+import AuthorizationModule from '../../../../modules/AuthorizationModule';
 
 function ProfilePage() {
   return (
@@ -17,15 +15,7 @@ function ProfilePage() {
           <h1 className={pageGlobalStyles.title}>Профіль</h1>
 
           <div className={pageGlobalStyles.content_inner}>
-            <Loading />
-            <TextInput name={'email'} placeholder={'Уведіть електронну пошту...'} label={'Email'} />
-            <TextInput
-              name={'password'}
-              type="password"
-              placeholder={'Уведіть пароль...'}
-              label={'Пароль'}
-            />
-            <Button>Увійти</Button>
+            <AuthorizationModule />
           </div>
         </div>
       </div>

@@ -1,39 +1,31 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginAction, logoutAction } from '../modules/AuthorizationModule/store/reducer';
 
 const storageName = 'userData';
 
 export function useAuth() {
   const [ready, setReady] = useState(false);
-  const [token, setToken] = useState(null);
-  const [userId, setUserId] = useState(null);
+  const { isAuthorization, name, email, token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
-  const login = useCallback((jwtToken, id) => {
-    setToken(jwtToken);
-    setUserId(id);
-
-    localStorage.setItem(
-      storageName,
-      JSON.stringify({
-        userId: id,
-        token: jwtToken,
-      }),
-    );
+  const login = useCallback((token, name, email) => {
+    dispatch(loginAction({ token, name, email }));
   }, []);
 
   const logout = useCallback(() => {
-    setToken(null);
-    setUserId(null);
-    localStorage.removeItem(storageName);
+    dispatch(logoutAction());
   }, []);
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem(storageName));
 
     if (data && data.token) {
-      login(data.token, data.userId);
+      login(data.token, data.name, data.email);
     }
+
     setReady(true);
   }, [login]);
 
-  return { login, logout, token, userId, ready };
+  return { login, logout, isAuthorization, name, email, token, ready };
 }
