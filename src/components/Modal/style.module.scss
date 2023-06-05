@@ -7,13 +7,15 @@
   flex-direction: column;
   z-index: 10;
 
-  top: 25%;
-  left: 40%;
+  top: pxToRem(60px);
+  left: calc(50% - pxToRem(200px));
   width: fit-content;
   height: fit-content;
 
   box-shadow: $box_shadow;
   border: 2px solid $primary_color;
+
+  overflow: visible;
 
   .title {
     margin: 0;
@@ -24,6 +26,35 @@
     font-size: minMaxSize(20px, 2.5vh, 16px);
   }
 
+  .close_button {
+    position: absolute;
+    appearance: none;
+    top: pxToRem(-40px);
+    right: pxToRem(-40px);
+    width: pxToRem(30px);
+    height: pxToRem(30px);
+
+    padding: pxToRem(5px);
+
+    background-color: transparent;
+    border-radius: pxToRem(3px);
+    border: 2px solid transparent;
+
+    outline: none;
+    cursor: pointer;
+
+    transition: border 150ms, border-radius 600ms;
+
+    img {
+      width: 100%;
+    }
+
+    &:hover {
+      border-radius: pxToRem(12px);
+      border: 2px solid $primary_color;
+    }
+  }
+
   .content {
     display: flex;
     flex-direction: column;
@@ -31,21 +62,29 @@
     gap: pxToRem(15px);
 
     margin-top: pxToRem(40px);
+    padding-top: pxToRem(20px);
+    padding-right: pxToRem(20px);
+    height: fit-content;
+    max-height: calc(100vh - pxToRem(250px));
+
+    overflow-y: auto;
   }
 
   .row {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 }
 
 .back_panel {
   position: absolute;
-  width: calc(100vw - pxToRem(60px));
-  height: calc(100vh - pxToRem(60px));
+  top: -100%;
+  left: -100%;
+  width: 200%;
+  height: 200%;
   z-index: 5;
 
-  border-radius: pxToRem(40px);
   backdrop-filter: blur(5px);
 
   transition: all 800ms;

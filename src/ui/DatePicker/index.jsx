@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from './style.module.scss';
 
-function DatePicker({ style, className, name, label, min, max, value = '', onChange }) {
+function DatePicker({ style, className, name, label, min, max, value = '', onChange = () => {} }) {
   const _className = `${styles.root} ${className}`;
   const [date, setDate] = useState(value);
 

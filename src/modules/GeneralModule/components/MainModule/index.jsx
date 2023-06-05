@@ -25,7 +25,6 @@ function GeneralModule() {
   const [income, setIncome] = useState({ lastYear: 0, lastMonth: 0, lastDay: 0 });
   const [costs, setCosts] = useState({ lastYear: 0, lastMonth: 0, lastDay: 0 });
 
-  //////////////////////////
   const [showModal, setShowModal] = useState(false);
 
   const data1 = [10, 5, 30, 25, 46];
@@ -35,35 +34,45 @@ function GeneralModule() {
 
   const titlesIncome = ['Дата', 'Рахунок', 'Джерело', 'Прибуток'];
   const titlesCosts = ['Дата', 'Рахунок', 'Джерело', 'Витрати', 'Вже оплачено'];
+  const titlesModal = {
+    date: 'Дата',
+    money_account: 'Рахунок',
+    comment: 'Коментар',
+    source_from: 'Джерело',
+    income: 'Прибуток',
+    costs: 'Витрати',
+    already_paid: 'Оплачено',
+    worker_full_name: "Ім'я працівника",
+    worker_money_account: 'Рахунок працівника',
+    worker_realm: 'Спеціалізація працівника',
+    worker_salary: 'Зарплатня працівника',
+  };
 
-  const [dataModal, setDataModal] = useState([
-    { title: 'Дата', value: '26.09.2023' },
-    { title: 'Джерело', value: 'ЗП працівнику' },
-    { title: 'Прибуток', value: '3 800 $' },
-    { title: 'Витрати', value: '1 670 $' },
-    { title: 'Маржа', value: '1 830 $' },
-    { title: 'Маржинальність', value: '53.6 %' },
-    { title: 'Рентабельність', value: '53.6 %' },
-  ]);
+  const [dataModal, setDataModal] = useState([]);
 
   function handleClickRow(index) {
     setShowModal(true);
 
     const tempDataModal = [];
     for (const [key, value] of Object.entries(records.resultRecords[index])) {
-      tempDataModal.push({
-        title: key,
-        value: value,
-      });
+      if (titlesModal[key]) {
+        let formatedValue = value;
+
+        switch (key) {
+          case 'date':
+            formatedValue = new Date(formatedValue).toLocaleDateString('en-CA');
+            break;
+        }
+
+        tempDataModal.push({
+          title: titlesModal[key],
+          value: formatedValue,
+        });
+      }
     }
 
     setDataModal(tempDataModal);
   }
-
-  function handleCloseModal() {
-    setShowModal(false);
-  }
-  /////////////////////////
 
   async function loadRecords() {
     try {
@@ -135,6 +144,10 @@ function GeneralModule() {
   useEffect(() => {
     loadRecords();
   }, []);
+
+  function handleCloseModal() {
+    setShowModal(false);
+  }
 
   if (loading) {
     return <Loading />;

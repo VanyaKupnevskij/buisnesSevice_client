@@ -14,6 +14,7 @@ function RecordsModule() {
   const { selectedId } = useProject();
   const { token } = useAuth();
   const [records, setRecords] = useState([]);
+  const [workers, setWorkers] = useState([]);
   const [renderList, setRenderList] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [dataModal, setDataModal] = useState([]);
@@ -23,26 +24,89 @@ function RecordsModule() {
   });
 
   const titles = ['Дата', 'Рахунок', 'Джерело', 'Прибуток', 'Витрати', 'Оплачено'];
-  const titlesModal = {
-    date: 'Дата',
-    money_account: 'Рахунок',
-    comment: 'Коментар',
-    source_from: 'Джерело',
-    income: 'Прибуток',
-    costs: 'Витрати',
-    already_paid: 'Оплачено',
-    worker_full_name: "Ім'я працівника",
-    worker_money_account: 'Рахунок працівника',
-    worker_realm: 'Спеціалізація працівника',
-    worker_salary: 'Зарплатня працівника',
+  const tamplateDataModal = {
+    date: { name: 'date', title: 'Дата', value: null, type: 'date' },
+    money_account: {
+      name: 'money_account',
+      title: 'Рахунок',
+      value: null,
+      type: 'select',
+      options: [
+        { key: 'fop', value: 'ФОП' },
+        { key: 'monobank', value: 'Monobank' },
+        { key: 'privatebank', value: 'Privatebank' },
+        { key: 'cash', value: 'Готівка' },
+        { key: 'another', value: 'Інше' },
+      ],
+    },
+    comment: { name: 'comment', title: 'Коментар', value: null, type: 'text', multiple: true },
+    source_from: {
+      name: 'source_from',
+      title: 'Джерело',
+      value: null,
+      type: 'select',
+      options: [
+        { key: 'ads', value: 'Реклама' },
+        { key: 'taget', value: 'Тарегет' },
+        { key: 'salary', value: 'Зарплатня' },
+        { key: 'subscribe', value: 'Підписка' },
+        { key: 'another', value: 'Інше' },
+      ],
+    },
+    income: { name: 'income', title: 'Прибуток', value: null, type: 'number' },
+    costs: { name: 'costs', title: 'Витрати', value: null, type: 'number' },
+    already_paid: { name: 'already_paid', title: 'Оплачено', value: null, type: 'number' },
+    worker_full_name: {
+      name: 'worker_full_name',
+      title: "Ім'я працівника",
+      value: null,
+      type: 'select',
+      options: [],
+    },
+    worker_money_account: {
+      name: 'worker_money_account',
+      title: 'Рахунок працівника',
+      value: null,
+      type: 'select',
+      options: [
+        { key: 'fop', value: 'ФОП' },
+        { key: 'monobank', value: 'Monobank' },
+        { key: 'privatebank', value: 'Privatebank' },
+        { key: 'cash', value: 'Готівка' },
+        { key: 'another', value: 'Інше' },
+      ],
+    },
+    worker_realm: {
+      name: 'worker_realm',
+      title: 'Спеціалізація працівника',
+      value: null,
+      type: 'select',
+      options: [
+        { key: 'seo', value: 'Сео' },
+        { key: 'tageter', value: 'Таргетолог' },
+        { key: 'menager', value: 'Менеджер' },
+        { key: 'director', value: 'Діректор' },
+        { key: 'designer', value: 'Дизайнер' },
+        { key: 'programmer', value: 'Программіст' },
+        { key: 'another', value: 'Інше' },
+      ],
+    },
+    worker_salary: {
+      name: 'worker_salary',
+      title: 'Зарплатня працівника',
+      value: null,
+      type: 'number',
+    },
   };
 
   function handleClickRow(index) {
-    setShowModal(true);
+    const tempDataModal = JSON.parse(JSON.stringify(tamplateDataModal));
+    tempDataModal.worker_full_name.options = workers.map((worker) => {
+      return { key: worker.id, value: worker.full_name };
+    });
 
-    const tempDataModal = [];
     for (const [key, value] of Object.entries(records.resultRecords[index])) {
-      if (titlesModal[key]) {
+      if (tempDataModal[key]) {
         let formatedValue = value;
 
         switch (key) {
@@ -51,14 +115,12 @@ function RecordsModule() {
             break;
         }
 
-        tempDataModal.push({
-          title: titlesModal[key],
-          value: formatedValue,
-        });
+        tempDataModal[key].value = formatedValue;
       }
     }
 
-    setDataModal(tempDataModal);
+    setDataModal(Object.values(tempDataModal));
+    setShowModal(true);
   }
 
   async function loadRecords() {
@@ -77,8 +139,14 @@ function RecordsModule() {
         bearerToken: token,
         params,
       });
+      const responceWorkers = await request({
+        url: '/workers',
+        method: 'get',
+        bearerToken: token,
+      });
 
       setRecords(responceRecords);
+      setWorkers(responceWorkers);
 
       const formatedList = responceRecords.resultRecords.map((record) => {
         return {
@@ -121,7 +189,9 @@ function RecordsModule() {
 
   return (
     <>
-      {showModal && <Modal title={'Деталі запису'} datas={dataModal} onClose={handleCloseModal} />}
+      {showModal && (
+        <Modal title={'Деталі запису'} datas={dataModal} onClose={handleCloseModal} isInput />
+      )}
       {error ? (
         <div className={styles.error_message}>{error.message}</div>
       ) : (
