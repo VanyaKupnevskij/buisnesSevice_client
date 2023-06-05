@@ -6,9 +6,38 @@ import TextInput from '../../ui/TextInput';
 import closeImage from '../images/close.svg';
 import SelectInput from '../../ui/SelectInput';
 import DatePicker from '../../ui/DatePicker';
+import { useEffect, useState } from 'react';
+import Button from '../../ui/Button';
 
-function Modal({ title = '', datas = [], onClose = () => {}, isInput = false }) {
+function Modal({
+  title = '',
+  datas = [],
+  onClose = () => {},
+  isInput = false,
+  onChange = () => {},
+}) {
   const classNameRoot = `${styles.root} ${panelGlobalStyle.panel}`;
+  const [values, setValues] = useState(datas);
+
+  useEffect(() => {
+    setValues(datas);
+  }, []);
+
+  function handleChangeInput(name, newValue) {
+    const tempValues = [...values];
+
+    for (let i = 0; i < tempValues.length; i++) {
+      if (tempValues[i].name === name) {
+        tempValues[i].value = newValue;
+      }
+    }
+
+    setValues(tempValues);
+  }
+
+  function handleSumbit() {
+    onChange([...values]);
+  }
 
   return (
     <>
@@ -18,8 +47,13 @@ function Modal({ title = '', datas = [], onClose = () => {}, isInput = false }) 
           <img src={closeImage} alt="close" />
         </button>
         <dl className={styles.content}>
-          {datas.map((data) => {
-            if (!data.value) return;
+          {values.map((data) => {
+            if (
+              (!data.value && !isInput) ||
+              data.type_display === 'none' ||
+              (data.type_display === 'readonly' && isInput)
+            )
+              return;
 
             return (
               <div key={data.title} className={styles.row}>
@@ -27,19 +61,24 @@ function Modal({ title = '', datas = [], onClose = () => {}, isInput = false }) 
                   {data.type === 'number' ? data.title + ' (грн)' : data.title}
                 </dt>
                 <dd className={styles.row_value}>
-                  {isInput ? renderInput(data) : <>{data.value}</>}
+                  {isInput ? renderInput(data, handleChangeInput) : <>{data.value}</>}
                 </dd>
               </div>
             );
           })}
         </dl>
+        {isInput && (
+          <Button className={styles.button_submit} onClick={handleSumbit}>
+            Зберегти
+          </Button>
+        )}
       </div>
       <div className={styles.back_panel}></div>
     </>
   );
 }
 
-function renderInput(data) {
+function renderInput(data, onChange) {
   switch (data.type) {
     case 'text':
       return (
@@ -50,6 +89,7 @@ function renderInput(data) {
           type={data.type}
           placeholder={`Уведіть ${data.title.toLowerCase().split(' ')[0]} ...`}
           multiple={data.multiple}
+          onChange={(value) => onChange(data.name, value)}
         />
       );
     case 'number':
@@ -60,6 +100,7 @@ function renderInput(data) {
           value={data.value}
           type={data.type}
           placeholder={`Уведіть ${data.title.toLowerCase().split(' ')[0]} ...`}
+          onChange={(value) => onChange(data.name, value)}
         />
       );
     case 'select':
@@ -67,13 +108,22 @@ function renderInput(data) {
         <SelectInput
           label={data.title.split(' ')[0]}
           name={data.name}
+          initValue={data.value}
           type={data.type}
           placeholder={`Уведіть ${data.title.toLowerCase().split(' ')[0]} ...`}
           options={data.options}
+          onChange={(value) => onChange(data.name, value)}
         />
       );
     case 'date':
-      return <DatePicker label={data.title.split(' ')[0]} name={data.name} value={data.value} />;
+      return (
+        <DatePicker
+          label={data.title.split(' ')[0]}
+          name={data.name}
+          value={data.value}
+          onChange={(value) => onChange(data.name, value)}
+        />
+      );
   }
 }
 

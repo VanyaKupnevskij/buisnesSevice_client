@@ -2,17 +2,33 @@ import styles from './style.module.scss';
 import arrowImage from '../images/Arrow.svg';
 import { useState } from 'react';
 
-function SelectInput({ style, className = '', options = [], name, placeholder = '', label }) {
+function SelectInput({
+  style,
+  className = '',
+  options = [],
+  name,
+  initValue,
+  placeholder = '',
+  label,
+  onChange = () => {},
+}) {
   const _className = `${styles.root} ${className}`;
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(initValue);
 
-  function handleChange(e) {
-    setValue(e.target.value);
+  function handleChange(value) {
+    setValue(value);
+
+    onChange(value);
   }
 
   return (
     <div style={style} className={_className}>
-      <select className={styles.input} value={value} onChange={handleChange} id={name} name={name}>
+      <select
+        className={styles.input}
+        value={value}
+        onChange={(e) => handleChange(e.target.value)}
+        id={name}
+        name={name}>
         {placeholder && (
           <option value="" disabled>
             {placeholder}

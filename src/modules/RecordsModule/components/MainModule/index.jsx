@@ -8,6 +8,7 @@ import { useHttp } from '../../../../hooks/http.hook';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../../../hooks/auth.hook';
 import { useProject } from '../../../../hooks/projects.hook';
+import Button from '../../../../ui/Button';
 
 function RecordsModule() {
   const { loading, request, error } = useHttp();
@@ -17,6 +18,7 @@ function RecordsModule() {
   const [workers, setWorkers] = useState([]);
   const [renderList, setRenderList] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [regimModal, setRegimModal] = useState('update');
   const [dataModal, setDataModal] = useState([]);
   const [filterDate, setFilterDate] = useState({
     start_date: undefined,
@@ -25,70 +27,105 @@ function RecordsModule() {
 
   const titles = ['Дата', 'Рахунок', 'Джерело', 'Прибуток', 'Витрати', 'Оплачено'];
   const tamplateDataModal = {
-    date: { name: 'date', title: 'Дата', value: null, type: 'date' },
+    id: { name: 'id', title: 'id', value: null, type: 'text', type_display: 'none' },
+    date: { name: 'date', title: 'Дата', value: null, type: 'date', type_display: 'all' },
     money_account: {
       name: 'money_account',
       title: 'Рахунок',
-      value: null,
+      value: 'Не задано',
       type: 'select',
+      type_display: 'all',
       options: [
-        { key: 'fop', value: 'ФОП' },
-        { key: 'monobank', value: 'Monobank' },
-        { key: 'privatebank', value: 'Privatebank' },
-        { key: 'cash', value: 'Готівка' },
-        { key: 'another', value: 'Інше' },
+        { key: 'ФОП', value: 'ФОП' },
+        { key: 'Monobank', value: 'Monobank' },
+        { key: 'Privatebank', value: 'Privatebank' },
+        { key: 'Готівка', value: 'Готівка' },
+        { key: 'Інше', value: 'Інше' },
+        { key: null, value: 'Не задано' },
       ],
     },
-    comment: { name: 'comment', title: 'Коментар', value: null, type: 'text', multiple: true },
+    comment: {
+      name: 'comment',
+      title: 'Коментар',
+      value: '',
+      type: 'text',
+      type_display: 'all',
+      multiple: true,
+    },
     source_from: {
       name: 'source_from',
       title: 'Джерело',
-      value: null,
+      value: 'Не задано',
       type: 'select',
+      type_display: 'all',
       options: [
-        { key: 'ads', value: 'Реклама' },
-        { key: 'taget', value: 'Тарегет' },
-        { key: 'salary', value: 'Зарплатня' },
-        { key: 'subscribe', value: 'Підписка' },
-        { key: 'another', value: 'Інше' },
+        { key: 'Реклама', value: 'Реклама' },
+        { key: 'Тарегет', value: 'Тарегет' },
+        { key: 'Зарплатня', value: 'Зарплатня' },
+        { key: 'Підписка', value: 'Підписка' },
+        { key: 'Інше', value: 'Інше' },
+        { key: null, value: 'Не задано' },
       ],
     },
-    income: { name: 'income', title: 'Прибуток', value: null, type: 'number' },
-    costs: { name: 'costs', title: 'Витрати', value: null, type: 'number' },
-    already_paid: { name: 'already_paid', title: 'Оплачено', value: null, type: 'number' },
+    income: {
+      name: 'income',
+      title: 'Прибуток',
+      value: 0,
+      type: 'number',
+      type_display: 'all',
+    },
+    costs: {
+      name: 'costs',
+      title: 'Витрати',
+      value: 0,
+      type: 'number',
+      type_display: 'all',
+    },
+    already_paid: {
+      name: 'already_paid',
+      title: 'Оплачено',
+      value: 0,
+      type: 'number',
+      type_display: 'all',
+    },
     worker_full_name: {
       name: 'worker_full_name',
       title: "Ім'я працівника",
-      value: null,
+      value: 'Не задано',
       type: 'select',
+      type_display: 'all',
       options: [],
     },
     worker_money_account: {
       name: 'worker_money_account',
       title: 'Рахунок працівника',
-      value: null,
+      value: 'Не задано',
       type: 'select',
+      type_display: 'readonly',
       options: [
-        { key: 'fop', value: 'ФОП' },
-        { key: 'monobank', value: 'Monobank' },
-        { key: 'privatebank', value: 'Privatebank' },
-        { key: 'cash', value: 'Готівка' },
-        { key: 'another', value: 'Інше' },
+        { key: 'ФОП', value: 'ФОП' },
+        { key: 'Monobank', value: 'Monobank' },
+        { key: 'Privatebank', value: 'Privatebank' },
+        { key: 'Готівка', value: 'Готівка' },
+        { key: 'Інше', value: 'Інше' },
+        { key: null, value: 'Не задано' },
       ],
     },
     worker_realm: {
       name: 'worker_realm',
       title: 'Спеціалізація працівника',
-      value: null,
+      value: 'Не задано',
       type: 'select',
+      type_display: 'readonly',
       options: [
-        { key: 'seo', value: 'Сео' },
-        { key: 'tageter', value: 'Таргетолог' },
-        { key: 'menager', value: 'Менеджер' },
-        { key: 'director', value: 'Діректор' },
-        { key: 'designer', value: 'Дизайнер' },
-        { key: 'programmer', value: 'Программіст' },
-        { key: 'another', value: 'Інше' },
+        { key: 'Сео', value: 'Сео' },
+        { key: 'Таргетолог', value: 'Таргетолог' },
+        { key: 'Менеджер', value: 'Менеджер' },
+        { key: 'Діректор', value: 'Діректор' },
+        { key: 'Дизайнер', value: 'Дизайнер' },
+        { key: 'Программіст', value: 'Программіст' },
+        { key: 'Інше', value: 'Інше' },
+        { key: null, value: 'Не задано' },
       ],
     },
     worker_salary: {
@@ -96,18 +133,25 @@ function RecordsModule() {
       title: 'Зарплатня працівника',
       value: null,
       type: 'number',
+      type_display: 'readonly',
     },
   };
 
   function handleClickRow(index) {
+    setRegimModal('update');
+
     const tempDataModal = JSON.parse(JSON.stringify(tamplateDataModal));
     tempDataModal.worker_full_name.options = workers.map((worker) => {
-      return { key: worker.id, value: worker.full_name };
+      return { key: worker.full_name, value: worker.full_name };
+    });
+    tempDataModal.worker_full_name.options.push({
+      key: null,
+      value: 'Не задано',
     });
 
     for (const [key, value] of Object.entries(records.resultRecords[index])) {
       if (tempDataModal[key]) {
-        let formatedValue = value;
+        let formatedValue = value ?? 'Не задано';
 
         switch (key) {
           case 'date':
@@ -162,6 +206,26 @@ function RecordsModule() {
       setRenderList(formatedList);
     } catch (e) {}
   }
+  async function updateRecord(newDataRecord) {
+    try {
+      const responceRecord = await request({
+        url: '/records/update/' + newDataRecord.id,
+        method: 'put',
+        bearerToken: token,
+        data: newDataRecord,
+      });
+    } catch (e) {}
+  }
+  async function createRecord(newDataRecord) {
+    try {
+      const responceRecord = await request({
+        url: '/records/create',
+        method: 'post',
+        bearerToken: token,
+        data: newDataRecord,
+      });
+    } catch (e) {}
+  }
 
   useEffect(() => {
     loadRecords();
@@ -169,6 +233,54 @@ function RecordsModule() {
 
   function handleCloseModal() {
     setShowModal(false);
+  }
+
+  async function handleSubmitModal(newValues, regim) {
+    const formatedValues = {};
+    let income = null;
+    let costs = null;
+    let already_paid = null;
+    let worker_full_name = null;
+
+    for (let parameter of newValues) {
+      formatedValues[parameter.name] = parameter.value;
+
+      switch (parameter.name) {
+        case 'income':
+          income = parameter.value;
+          break;
+        case 'costs':
+          costs = parameter.value;
+          break;
+        case 'already_paid':
+          already_paid = parameter.value;
+          break;
+        case 'worker_full_name':
+          worker_full_name = parameter.value;
+          break;
+      }
+    }
+
+    formatedValues.income = {
+      price: income,
+    };
+
+    formatedValues.costs = {
+      workers_id: workers.find((worker) => worker.full_name === worker_full_name)?.id,
+      price: costs,
+      already_paid: already_paid,
+    };
+
+    if (regimModal === 'update') {
+      await updateRecord(formatedValues);
+    } else {
+      formatedValues.projects_id = selectedId;
+      await createRecord(formatedValues);
+    }
+
+    handleCloseModal();
+
+    await loadRecords();
   }
 
   function handleChangeStartDate(newDate) {
@@ -183,6 +295,22 @@ function RecordsModule() {
     loadRecords();
   }
 
+  function handleClickCreate() {
+    setRegimModal('create');
+
+    const tempDataModal = JSON.parse(JSON.stringify(tamplateDataModal));
+    tempDataModal.worker_full_name.options = workers.map((worker) => {
+      return { key: worker.full_name, value: worker.full_name };
+    });
+    tempDataModal.worker_full_name.options.push({
+      key: null,
+      value: 'Не задано',
+    });
+
+    setDataModal(Object.values(tempDataModal));
+    setShowModal(true);
+  }
+
   if (loading) {
     return <Loading />;
   }
@@ -190,12 +318,20 @@ function RecordsModule() {
   return (
     <>
       {showModal && (
-        <Modal title={'Деталі запису'} datas={dataModal} onClose={handleCloseModal} isInput />
+        <Modal
+          title={'Деталі запису'}
+          datas={dataModal}
+          onClose={handleCloseModal}
+          onChange={handleSubmitModal}
+          isInput
+          regimModal={regimModal}
+        />
       )}
       {error ? (
         <div className={styles.error_message}>{error.message}</div>
       ) : (
         <>
+          <Button onClick={handleClickCreate}>Створити</Button>
           <Table
             titles={titles}
             contents={renderList}
