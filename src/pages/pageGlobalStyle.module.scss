@@ -26,7 +26,7 @@
   }
 }
 @for $i from 1 through 100 {
-  .content *:nth-child(#{$i}n) {
+  .content_inner > *:nth-child(#{$i}n) {
     animation-delay: #{($i - 1) * $panel_fade_delay}ms;
   }
 }

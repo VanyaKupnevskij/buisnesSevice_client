@@ -58,6 +58,9 @@
       cursor: pointer;
       transition: background-color 200ms;
 
+      animation: fadeEffect $table_row_fade_time forwards;
+      opacity: 0;
+
       &.selected {
         background-color: rgba($primary_color, 0.5);
         border-radius: $border_radius;
@@ -106,5 +109,22 @@
       left: pxToRem(20px);
       background-color: $panel_dark_color;
     }
+  }
+}
+
+@for $i from 1 through 100 {
+  .table tr:nth-child(#{$i}n) {
+    animation-delay: #{($i - 1) * $table_row_fade_delay}ms;
+  }
+}
+
+@keyframes fadeEffect {
+  0% {
+    transform: rotateX(40deg);
+    opacity: 0;
+  }
+  100% {
+    transform: rotateX(0deg);
+    opacity: 1;
   }
 }
