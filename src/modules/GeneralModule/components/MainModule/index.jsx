@@ -17,6 +17,7 @@ function GeneralModule() {
   const { selectedId } = useProject();
   const { token } = useAuth();
   const [records, setRecords] = useState([]);
+  const [workers, setWorkers] = useState([]);
   const [renderListIncome, setRenderListIncome] = useState([]);
   const [renderListCosts, setRenderListCosts] = useState([]);
   const [marginality, setMarginality] = useState({ lastYear: 0, lastMonth: 0, lastDay: 0 });
@@ -74,8 +75,14 @@ function GeneralModule() {
           projects_id: selectedId,
         },
       });
+      const responceWorkers = await request({
+        url: '/workers',
+        method: 'get',
+        bearerToken: token,
+      });
 
       setRecords(responceRecords);
+      setWorkers(responceWorkers);
 
       const formatedListIncome = responceRecords.resultRecords.map((record) => {
         return {
@@ -140,7 +147,12 @@ function GeneralModule() {
         <div className={styles.error_message}>{error.message}</div>
       ) : (
         <>
-          <Numeric title={'Кількість працівників'} value={7000} duration={800} startDelay={1000} />
+          <Numeric
+            title={'Кількість працівників'}
+            value={workers.length}
+            duration={800}
+            startDelay={1000}
+          />
           <Numeric
             title={'Прибуток за останній день'}
             value={income.lastDay}
