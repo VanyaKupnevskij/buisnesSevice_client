@@ -2,10 +2,10 @@ import styles from './style.module.scss';
 
 import Loading from '../../../../ui/Loading';
 import Table from '../../../../components/Table';
+import Modal from '../../../../components/Modal';
 
 import { useEffect, useState } from 'react';
 import tamplateDataModal, { titles } from '../../constants/tamplateDataModal';
-import Modal from '../../../../components/Modal';
 import { useWorkersHttp } from '../../helpers/workersHttp.hook';
 
 function WorkersModule() {
@@ -22,15 +22,13 @@ function WorkersModule() {
   }, []);
 
   async function loadWorkers() {
-    try {
-      const responceWorkers = await requestWorkers();
+    const responceWorkers = await requestWorkers();
 
-      setWorkers(responceWorkers);
+    setWorkers(responceWorkers);
 
-      const formatedList = makeFormatedList(responceWorkers);
+    const formatedList = makeFormatedList(responceWorkers);
 
-      setRenderList(formatedList);
-    } catch (e) {}
+    setRenderList(formatedList);
   }
 
   function makeFormatedList(inputList) {
@@ -108,7 +106,7 @@ function WorkersModule() {
     <>
       {showModal && (
         <Modal
-          title={'Деталі запису'}
+          title={'Деталі працівника'}
           datas={dataModal}
           onClose={handleCloseModal}
           onClickDelete={handleClickDelete}

@@ -18,7 +18,7 @@ function NumericPercent({ title, value = 0, duration = 800, startDelay = 500, co
       <b
         className={classNameValue}
         style={{ '--start-delay': startDelay + 'ms', '--duration': duration * 1.63 + 'ms' }}>
-        {animNumber.toFixed(0)} %
+        {animNumber ? animNumber.toFixed(0) : 0} %
       </b>
       <PercentHalfCircle className={styles.percent} value={animNumber} />
     </div>
