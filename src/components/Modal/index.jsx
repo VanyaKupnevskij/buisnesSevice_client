@@ -71,7 +71,7 @@ function Modal({
           })}
         </dl>
         <div className={styles.controls}>
-          {isInput && hasDelete && (
+          {hasDelete && (
             <SecondaryButton
               onClick={() => onClickDelete(values.find((value) => value.name === 'id').value)}>
               Видалити

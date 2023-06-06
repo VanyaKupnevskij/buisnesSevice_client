@@ -103,7 +103,7 @@ const tamplateDataModal = {
   worker_salary: {
     name: 'worker_salary',
     title: 'Зарплатня працівника',
-    value: null,
+    value: 0,
     type: 'number',
     type_display: 'readonly',
   },
