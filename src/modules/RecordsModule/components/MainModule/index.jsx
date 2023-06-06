@@ -8,7 +8,6 @@ import { useHttp } from '../../../../hooks/http.hook';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../../../hooks/auth.hook';
 import { useProject } from '../../../../hooks/projects.hook';
-import Button from '../../../../ui/Button';
 
 function RecordsModule() {
   const { loading, request, error } = useHttp();
@@ -226,6 +225,15 @@ function RecordsModule() {
       });
     } catch (e) {}
   }
+  async function deleteRecord(id) {
+    try {
+      await request({
+        url: '/records/' + id,
+        method: 'delete',
+        bearerToken: token,
+      });
+    } catch (e) {}
+  }
 
   useEffect(() => {
     loadRecords();
@@ -233,6 +241,14 @@ function RecordsModule() {
 
   function handleCloseModal() {
     setShowModal(false);
+  }
+
+  async function handleClickDelete(id) {
+    handleCloseModal();
+
+    await deleteRecord(id);
+
+    await loadRecords();
   }
 
   async function handleSubmitModal(newValues, regim) {
@@ -323,7 +339,9 @@ function RecordsModule() {
           datas={dataModal}
           onClose={handleCloseModal}
           onChange={handleSubmitModal}
+          onClickDelete={handleClickDelete}
           isInput
+          hasDelete
           regimModal={regimModal}
         />
       )}
@@ -331,17 +349,18 @@ function RecordsModule() {
         <div className={styles.error_message}>{error.message}</div>
       ) : (
         <>
-          <Button onClick={handleClickCreate}>Створити</Button>
           <Table
             titles={titles}
             contents={renderList}
             onClick={handleClickRow}
+            onClickCreate={handleClickCreate}
             onChangeStartDate={handleChangeStartDate}
             onChangeEndDate={handleChangeEndDate}
             onApplyFilter={handleApplyFilter}
             startDateValue={filterDate.start_date}
             endDateValue={filterDate.end_date}
             typeFileter="date"
+            hasCreate
           />
         </>
       )}

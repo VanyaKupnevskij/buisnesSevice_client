@@ -2,7 +2,7 @@ import styles from './style.module.scss';
 import panelGlobalStyle from '../panelGlobalStyle.module.scss';
 import useAnimationGrowNumber from '../animationGrowNumber.hook';
 
-function Numeric({ title, value, duration = 800, startDelay = 500, countStep = 40 }) {
+function Numeric({ title, value = 0, duration = 800, startDelay = 500, countStep = 40 }) {
   const classNameRoot = `${styles.root} ${panelGlobalStyle.panel}`;
   const { animNumber } = useAnimationGrowNumber({ value, duration, startDelay, countStep });
 

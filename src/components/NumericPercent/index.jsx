@@ -4,7 +4,7 @@ import panelGlobalStyle from '../panelGlobalStyle.module.scss';
 import PercentHalfCircle from '../../ui/PercentHalfCircle';
 import useAnimationGrowNumber from '../animationGrowNumber.hook';
 
-function NumericPercent({ title, value, duration = 800, startDelay = 500, countStep = 40 }) {
+function NumericPercent({ title, value = 0, duration = 800, startDelay = 500, countStep = 40 }) {
   const classNameValue =
     styles.value +
     ' ' +

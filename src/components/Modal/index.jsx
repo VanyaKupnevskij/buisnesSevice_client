@@ -1,19 +1,22 @@
+import { useEffect, useState } from 'react';
+
 import styles from './style.module.scss';
 import panelGlobalStyle from '../panelGlobalStyle.module.scss';
 
 import TextInput from '../../ui/TextInput';
-
-import closeImage from '../images/close.svg';
 import SelectInput from '../../ui/SelectInput';
 import DatePicker from '../../ui/DatePicker';
-import { useEffect, useState } from 'react';
-import Button from '../../ui/Button';
+import Button, { SecondaryButton } from '../../ui/Button';
+
+import closeImage from '../images/close.svg';
 
 function Modal({
   title = '',
   datas = [],
   onClose = () => {},
+  onClickDelete = () => {},
   isInput = false,
+  hasDelete = false,
   onChange = () => {},
 }) {
   const classNameRoot = `${styles.root} ${panelGlobalStyle.panel}`;
@@ -67,11 +70,19 @@ function Modal({
             );
           })}
         </dl>
-        {isInput && (
-          <Button className={styles.button_submit} onClick={handleSumbit}>
-            Зберегти
-          </Button>
-        )}
+        <div className={styles.controls}>
+          {isInput && hasDelete && (
+            <SecondaryButton
+              onClick={() => onClickDelete(values.find((value) => value.name === 'id').value)}>
+              Видалити
+            </SecondaryButton>
+          )}
+          {isInput && (
+            <Button className={styles.button_submit} onClick={handleSumbit}>
+              Зберегти
+            </Button>
+          )}
+        </div>
       </div>
       <div className={styles.back_panel}></div>
     </>

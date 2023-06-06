@@ -112,7 +112,7 @@
   }
 }
 
-@for $i from 1 through 100 {
+@for $i from 1 through 30 {
   .table tr:nth-child(#{$i}n) {
     animation-delay: #{($i - 1) * $table_row_fade_delay}ms;
   }

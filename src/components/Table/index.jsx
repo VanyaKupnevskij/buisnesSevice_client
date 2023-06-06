@@ -13,6 +13,7 @@ function Table({
   titles,
   contents,
   onClick = () => {},
+  onClickCreate = () => {},
   onChangeStartDate = () => {},
   onChangeEndDate = () => {},
   onApplyFilter = () => {},
@@ -20,11 +21,12 @@ function Table({
   endDateValue,
   selectedRow = -1,
   hasFilter = true,
+  hasCreate = false,
   typeFileter = 'select',
 }) {
   const classNameRoot = `${styles.root} ${panelGlobalStyle.panel} ${className}`;
 
-  const listFilms = [
+  const listFilters = [
     { key: 'all_time', value: 'За весь час' },
     { key: 'year_time', value: 'За рік' },
     { key: 'month_time', value: 'За місяць' },
@@ -36,7 +38,7 @@ function Table({
         <h6 className={styles.title}>{title}</h6>
         {hasFilter &&
           (typeFileter === 'select' ? (
-            <SelectInput className={styles.filter_time} options={listFilms} name={'filter'} />
+            <SelectInput className={styles.filter_time} options={listFilters} name={'filter'} />
           ) : (
             <>
               <DatePicker
@@ -58,6 +60,11 @@ function Table({
               </Button>
             </>
           ))}
+        {hasCreate && (
+          <Button onClick={onClickCreate} style={{ marginLeft: '10px' }}>
+            Створити
+          </Button>
+        )}
       </div>
       <TableUI
         titles={titles}

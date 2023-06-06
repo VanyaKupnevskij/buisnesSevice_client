@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-function useAnimationGrowNumber({ value, duration = 800, startDelay = 500, countStep = 40 }) {
+function useAnimationGrowNumber({ value = 0, duration = 800, startDelay = 500, countStep = 40 }) {
   const [animNumber, setAnimNumber] = useState(0);
 
   useEffect(() => {

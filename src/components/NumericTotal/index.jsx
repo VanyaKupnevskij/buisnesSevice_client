@@ -8,8 +8,8 @@ import useFormatedPrice from '../formatedPrice.hook';
 
 function NumericTotal({
   title,
-  value,
-  percent,
+  value = 0,
+  percent = 0,
   graphData,
   widthGraph = 65,
   heightGraph = 60,
