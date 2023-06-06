@@ -12,16 +12,27 @@ function AuthorizationModule() {
   const { login, isAuthorization, name, email } = useAuth();
   const { loading, request, error, clearError } = useHttp();
   const [form, setForm] = useState({ email: '', password: '', name: '' });
+  const [isLogin, setIsLogin] = useState(true);
 
-  async function handleClickLogin() {
+  async function handleClickSubmit() {
     try {
-      const { token, name, email } = await request({
-        url: '/auth/login',
-        method: 'post',
-        data: { email: form.email, password: form.password },
-      });
+      if (isLogin) {
+        const { token, name, email } = await request({
+          url: '/auth/login',
+          method: 'post',
+          data: { email: form.email, password: form.password },
+        });
 
-      login(token, name, email);
+        login(token, name, email);
+      } else {
+        const responce = await request({
+          url: '/auth/registration',
+          method: 'post',
+          data: { name: form.name, email: form.email, password: form.password },
+        });
+
+        setIsLogin(true);
+      }
 
       setForm({ email: '', password: '', name: '' });
     } catch (e) {}
@@ -31,6 +42,11 @@ function AuthorizationModule() {
     clearError();
 
     setForm({ ...form, [name]: newValue });
+  }
+
+  function handleChangeType() {
+    setIsLogin((prev) => !prev);
+    setForm({ email: '', password: '', name: '' });
   }
 
   return (
@@ -51,15 +67,25 @@ function AuthorizationModule() {
         </div>
       ) : (
         <div className={classNameRoot}>
-          <h6 className={styles.title}>Вхід</h6>
+          <h6 className={styles.title}>{isLogin ? 'Вхід' : 'Реєстрація'}</h6>
           {error && <p className={styles.error_message}>{error.message}</p>}
+          {!isLogin && (
+            <TextInput
+              name={'name'}
+              placeholder={"Уведіть ім'я..."}
+              label={"Ім'я"}
+              value={form.name}
+              onChange={(value) => handleChange('name', value)}
+              onKeyUp={(e) => e.key === 'Enter' && handleClickSubmit()}
+            />
+          )}
           <TextInput
             name={'email'}
             placeholder={'Уведіть електронну пошту...'}
             label={'Email'}
             value={form.email}
             onChange={(value) => handleChange('email', value)}
-            onKeyUp={(e) => e.key === 'Enter' && handleClickLogin()}
+            onKeyUp={(e) => e.key === 'Enter' && handleClickSubmit()}
           />
           <TextInput
             name={'password'}
@@ -68,12 +94,14 @@ function AuthorizationModule() {
             label={'Пароль'}
             value={form.password}
             onChange={(value) => handleChange('password', value)}
-            onKeyUp={(e) => e.key === 'Enter' && handleClickLogin()}
+            onKeyUp={(e) => e.key === 'Enter' && handleClickSubmit()}
           />
-          <Button className={styles.submit_button} onClick={handleClickLogin} disabled={loading}>
-            {loading ? 'Завантажуємо...' : 'Увійти'}
+          <Button className={styles.submit_button} onClick={handleClickSubmit} disabled={loading}>
+            {loading ? 'Завантажуємо...' : isLogin ? 'Увійти' : 'Зареєструватися'}
           </Button>
-          <p className={styles.another_link}>реєстрація</p>
+          <p className={styles.another_link} onClick={handleChangeType}>
+            {isLogin ? 'реєстрація' : 'вхід'}
+          </p>
         </div>
       )}
     </>
