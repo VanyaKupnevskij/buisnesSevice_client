@@ -110,10 +110,10 @@ function MainPage() {
 
                 <section className={styles.new_collection}>
                   <div className={styles.container_fluid}>
-                    <h3 className={styles.new_collection__title}>Furniture new collection</h3>
+                    <h3 className={styles.new_collection__title}>Перегляньте наші можливості</h3>
                     <p className={styles.new_collection__text}>
-                      Deep v you probably haven't heard of them banh mi synth actually affogato.
-                      Aesthetic lyft ethical drinking vinegar austint
+                      Наш сервіс предоставляє різноманітні функції для керування і аналізу даних.
+                      Спробуйте те, що буде для вас найбільш зручним
                     </p>
                     <div className={styles.collection}>
                       <div className={styles.collection__item}>
