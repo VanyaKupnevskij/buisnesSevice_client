@@ -61,10 +61,62 @@ $gray-color: $black_color;
     }
   }
 
+  &__left_button {
+    position: absolute;
+    z-index: 10;
+    left: pxToRem(20px);
+    top: 35%;
+    appearance: none;
+    border: none;
+    background-color: transparent;
+    font-size: pxToRem(38px);
+    cursor: pointer;
+    transform: scale(1);
+
+    transition: all 200ms;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  &__right_button {
+    position: absolute;
+    z-index: 10;
+    right: pxToRem(20px);
+    top: 35%;
+    appearance: none;
+    border: none;
+    background-color: transparent;
+    font-size: pxToRem(38px);
+    cursor: pointer;
+    transform: scale(1);
+
+    transition: all 200ms;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  &__slider {
+    --offset-slider: 0%;
+
+    position: relative;
+    display: flex;
+
+    right: var(--offset-slider);
+    height: 510px;
+
+    transition: right 600ms ease-in-out;
+  }
+
   &__slider_item {
     display: flex !important;
     justify-content: center;
     align-items: center;
+
+    min-width: calc(100vw - 320px);
   }
 
   &__slider_info {
@@ -154,9 +206,8 @@ $gray-color: $black_color;
   }
 
   &__img {
-    min-height: 170px;
-    max-height: 170px;
-    object-fit: cover;
+    width: 170px;
+    object-fit: fill;
   }
 
   &__info {
@@ -176,6 +227,7 @@ $gray-color: $black_color;
     transition: all 0.5s;
 
     &_title {
+      margin: 0;
       @extend %title-font;
       max-width: 100px;
       font-size: 12px;
@@ -189,7 +241,7 @@ $gray-color: $black_color;
         width: 70px;
         height: 1px;
         left: calc(50% - 35px);
-        bottom: 19px;
+        bottom: 12px;
         background-color: #6d7278;
       }
     }
