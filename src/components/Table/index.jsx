@@ -38,7 +38,12 @@ function Table({
         <h6 className={styles.title}>{title}</h6>
         {hasFilter &&
           (typeFileter === 'select' ? (
-            <SelectInput className={styles.filter_time} options={listFilters} name={'filter'} />
+            <SelectInput
+              className={styles.filter_time}
+              options={listFilters}
+              name={'filter'}
+              onChange={onApplyFilter}
+            />
           ) : (
             <>
               <DatePicker

@@ -24,13 +24,25 @@ function GeneralModule() {
   const [profitability, setProfitability] = useState({ lastYear: 0, lastMonth: 0, lastDay: 0 });
   const [income, setIncome] = useState({ lastYear: 0, lastMonth: 0, lastDay: 0 });
   const [costs, setCosts] = useState({ lastYear: 0, lastMonth: 0, lastDay: 0 });
+  const [pointsInome, setPointsIncome] = useState({
+    lastYear: [],
+    lastMonth: [],
+    markYear: 'Прибутки по місяцям',
+    markMonth: 'Прибутки по дням',
+    percentYear: 0,
+    percentMonth: 0,
+  });
+  const [pointsCosts, setPointsCosts] = useState({
+    lastYear: [],
+    lastMonth: [],
+    markYear: 'Витрати по місяцям',
+    markMonth: 'Витрати по дням',
+    percentYear: 0,
+    percentMonth: 0,
+  });
+  const [filterTable, setFilterTable] = useState({ income: 'all_time', costs: 'all_time' }); // month_time, year_time
 
   const [showModal, setShowModal] = useState(false);
-
-  const data1 = [10, 5, 30, 25, 46];
-  const data2 = [40, 29, 35, 15, 24, 35, 55, 24, 40, 29, 35, 15, 15, 24, 35, 15];
-  const data3 = [10, 5, 30, 25, 46, 24, 35, 15];
-  const data4 = [...data1].reverse();
 
   const titlesIncome = ['Дата', 'Рахунок', 'Джерело', 'Прибуток'];
   const titlesCosts = ['Дата', 'Рахунок', 'Джерело', 'Витрати', 'Вже оплачено'];
@@ -93,27 +105,6 @@ function GeneralModule() {
       setRecords(responceRecords);
       setWorkers(responceWorkers);
 
-      const formatedListIncome = responceRecords.resultRecords.map((record) => {
-        return {
-          date: new Date(record.date).toLocaleDateString(),
-          money_account: record.money_account,
-          source_from: record.source_from,
-          income: record.income + ' грн.',
-        };
-      });
-      const formatedListCosts = responceRecords.resultRecords.map((record) => {
-        return {
-          date: new Date(record.date).toLocaleDateString(),
-          money_account: record.money_account,
-          source_from: record.source_from,
-          costs: record.costs + ' грн.',
-          already_paid: record.already_paid + ' грн.',
-        };
-      });
-
-      setRenderListIncome(formatedListIncome);
-      setRenderListCosts(formatedListCosts);
-
       // set additional information
       const yearsInfo = Object.entries(responceRecords.additionalInfo.year);
       const monthsInfo = Object.entries(responceRecords.additionalInfo.month);
@@ -138,15 +129,123 @@ function GeneralModule() {
         lastMonth: monthsInfo[monthsInfo.length - 1][1].profitability,
         lastDay: daysInfo[daysInfo.length - 1][1].profitability,
       });
+
+      setPointsIncome({
+        markYear: 'Прибутки по місяцям',
+        markMonth: 'Прибутки по дням',
+        lastYear: monthsInfo.map((data) => data[1].income),
+        lastMonth: daysInfo.map((data) => data[1].income),
+        percentYear:
+          (monthsInfo[monthsInfo.length - 1][1].income / monthsInfo[0][1].income) * 100 - 100,
+        percentMonth: (daysInfo[daysInfo.length - 1][1].income / daysInfo[0][1].income) * 100 - 100,
+      });
+      setPointsCosts({
+        markYear: 'Витрати по місяцям',
+        markMonth: 'Витрати по дням',
+        lastYear: monthsInfo.map((data) => data[1].costs),
+        lastMonth: daysInfo.map((data) => data[1].costs),
+        percentYear:
+          (monthsInfo[monthsInfo.length - 1][1].costs / monthsInfo[0][1].costs) * 100 - 100,
+        percentMonth: (daysInfo[daysInfo.length - 1][1].costs / daysInfo[0][1].costs) * 100 - 100,
+      });
+
+      // set list info
+      const { formatedListIncome, formatedListCosts } = getFormatedList(responceRecords);
+
+      setRenderListIncome(formatedListIncome);
+      setRenderListCosts(formatedListCosts);
     } catch (e) {}
+  }
+
+  function getFormatedList(records) {
+    if (!records || records.length === 0) return { formatedListIncome: [], formatedListCosts: [] };
+
+    const yearsInfo = Object.entries(records.additionalInfo.year);
+    const monthsInfo = Object.entries(records.additionalInfo.month);
+
+    const formatedListIncome = records.resultRecords.map((record) => {
+      switch (filterTable.income) {
+        case 'year_time':
+          if (new Date(yearsInfo[yearsInfo.length - 1][0] + '-01-01') > new Date(record.date)) {
+            return;
+          }
+          break;
+        case 'month_time':
+          if (
+            new Date(
+              yearsInfo[yearsInfo.length - 1][0] +
+                '-' +
+                monthsInfo[monthsInfo.length - 1][0] +
+                '-01',
+            ) > new Date(record.date)
+          ) {
+            return;
+          }
+          break;
+      }
+
+      return {
+        date: new Date(record.date).toLocaleDateString(),
+        money_account: record.money_account,
+        source_from: record.source_from,
+        income: record.income + ' грн.',
+      };
+    });
+
+    const formatedListCosts = records.resultRecords.map((record) => {
+      switch (filterTable.costs) {
+        case 'year_time':
+          if (new Date(yearsInfo[yearsInfo.length - 1][0] + '-01-01') > new Date(record.date)) {
+            return;
+          }
+          break;
+        case 'month_time':
+          if (
+            new Date(
+              yearsInfo[yearsInfo.length - 1][0] +
+                '-' +
+                monthsInfo[monthsInfo.length - 1][0] +
+                '-01',
+            ) > new Date(record.date)
+          ) {
+            return;
+          }
+          break;
+      }
+
+      return {
+        date: new Date(record.date).toLocaleDateString(),
+        money_account: record.money_account,
+        source_from: record.source_from,
+        costs: record.costs + ' грн.',
+        already_paid: record.already_paid + ' грн.',
+      };
+    });
+
+    return { formatedListIncome, formatedListCosts };
   }
 
   useEffect(() => {
     loadRecords();
   }, []);
 
+  useEffect(() => {
+    const { formatedListIncome, formatedListCosts } = getFormatedList(records);
+
+    setRenderListIncome(formatedListIncome);
+    setRenderListCosts(formatedListCosts);
+  }, [filterTable]);
+
   function handleCloseModal() {
     setShowModal(false);
+  }
+
+  function handleApplyFilterIncome(valueFilter) {
+    setFilterTable({ ...filterTable, income: valueFilter });
+  }
+
+  function handleApplyFilterCosts(valueFilter) {
+    setFilterTable({ ...filterTable, costs: valueFilter });
   }
 
   if (loading) {
@@ -180,33 +279,35 @@ function GeneralModule() {
           />
 
           <NumericTotal
-            title={'Прибуток за останній рік'}
+            title={pointsInome.markYear}
             value={income.lastYear}
-            percent={79}
-            graphData={data1}
+            percent={pointsInome.percentYear}
+            graphData={pointsInome.lastYear}
             startDelay={1000}
           />
           <NumericTotal
-            title={'Прибуток за останній місяць'}
+            title={pointsInome.markMonth}
             value={income.lastMonth}
-            percent={-10}
-            graphData={data1}
+            percent={pointsInome.percentMonth}
+            graphData={pointsInome.lastMonth}
             startDelay={1000}
           />
 
           <NumericTotal
-            title={'Витрати за останній рік'}
+            title={pointsCosts.markYear}
             value={costs.lastYear}
-            percent={3}
-            graphData={data1}
+            percent={pointsCosts.percentYear}
+            graphData={pointsCosts.lastYear}
             startDelay={1000}
+            invertColor
           />
           <NumericTotal
-            title={'Витрати за останній місяць'}
+            title={pointsCosts.markMonth}
             value={costs.lastMonth}
-            percent={-6}
-            graphData={data1}
+            percent={pointsCosts.percentMonth}
+            graphData={pointsCosts.lastMonth}
             startDelay={1000}
+            invertColor
           />
 
           <NumericPercent
@@ -246,12 +347,14 @@ function GeneralModule() {
             titles={titlesIncome}
             contents={renderListIncome}
             onClick={handleClickRow}
+            onApplyFilter={handleApplyFilterIncome}
           />
           <Table
             title={'Витрати'}
             titles={titlesCosts}
             contents={renderListCosts}
             onClick={handleClickRow}
+            onApplyFilter={handleApplyFilterCosts}
           />
         </>
       )}

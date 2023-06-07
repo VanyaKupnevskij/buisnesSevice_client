@@ -24,6 +24,8 @@ function TableUI({
 
       <tbody>
         {contents.map((row, id) => {
+          if (!row) return;
+
           const list = Array.isArray(row) ? row : Object.values(row);
 
           return (

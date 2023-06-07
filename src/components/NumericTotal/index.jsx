@@ -16,12 +16,16 @@ function NumericTotal({
   duration = 800,
   startDelay = 500,
   countStep = 40,
+  invertColor = false,
 }) {
   const { animNumber } = useAnimationGrowNumber({ value, duration, startDelay, countStep });
   const valueFormated = useFormatedPrice(animNumber);
-  const percentFormated = (percent > 0 ? 'Up to ' : 'Down to ') + percent + ' %';
+  const percentFormated =
+    (percent > 0 ? 'Up to ' : 'Down to ') + (percent && percent.toFixed(1)) + ' %';
   const classNamePercent =
-    styles.percent + ' ' + (percent > 0 ? styles.percent_green : styles.percent_red);
+    styles.percent +
+    ' ' +
+    ((percent > 0) ^ invertColor ? styles.percent_green : styles.percent_red);
   const classNameRoot = `${styles.root} ${panelGlobalStyle.panel}`;
 
   return (
@@ -40,7 +44,7 @@ function NumericTotal({
         data={graphData}
         width={widthGraph}
         height={heightGraph}
-        color={percent > 0 ? COLORS.green_color : COLORS.red_color}
+        color={(percent > 0) ^ invertColor ? COLORS.green_color : COLORS.red_color}
       />
     </div>
   );
